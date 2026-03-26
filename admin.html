@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VDIRECTORS — Admin</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23111'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='700' font-size='18' fill='white'>V</text></svg>">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- ===== LOGIN ===== -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-box">
+      <div class="login-logo">VDIRECTORS</div>
+      <p class="login-sub">Admin Portal</p>
+      <form id="loginForm">
+        <div class="field-group">
+          <label>이메일</label>
+          <input type="email" id="loginEmail" placeholder="admin@vdirectors.com" required>
+        </div>
+        <div class="field-group">
+          <label>비밀번호</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required>
+        </div>
+        <p class="login-error" id="loginError"></p>
+        <button type="submit" class="btn-primary" id="loginBtn">로그인</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== DASHBOARD ===== -->
+  <div id="dashboard" class="dashboard hidden">
+
+    <!-- Top Bar -->
+    <header class="admin-header">
+      <div class="admin-header-left">
+        <span class="admin-logo">VDIRECTORS</span>
+        <span class="admin-badge">Admin</span>
+      </div>
+      <div class="admin-header-right">
+        <span id="adminUserEmail" class="admin-user-email"></span>
+        <button class="btn-ghost" id="logoutBtn">로그아웃</button>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="admin-main">
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" data-tab="portfolio">포트폴리오</button>
+        <button class="admin-tab-btn" data-tab="clients">클라이언트 로고 <span id="clientsCount" class="admin-count"></span></button>
+      </div>
+
+      <div class="admin-toolbar">
+        <div class="admin-toolbar-left">
+          <h1 class="admin-title">포트폴리오 관리</h1>
+          <span class="admin-count" id="portfolioCount">— 개</span>
+          <span class="admin-count featured-count" id="featuredCount"></span>
+        </div>
+        <button class="btn-primary" id="addBtn">+ 새 항목 추가</button>
+      </div>
+
+      <p class="admin-hint">드래그로 순서를 변경하세요. 변경 후 자동 저장됩니다.</p>
+
+      <div id="portfolioLoading" class="loading-state">불러오는 중...</div>
+      <div id="portfolioEmpty" class="empty-state hidden">등록된 포트폴리오가 없습니다.</div>
+
+      <ul id="portfolioList" class="portfolio-list"></ul>
+
+      <!-- Clients Panel -->
+      <div id="clientsPanel" class="hidden">
+        <div class="clients-upload-zone" id="clientsUploadZone">
+          <input type="file" id="clientsFileInput" accept="image/*" multiple style="display:none">
+          <span class="upload-icon">↑</span>
+          <span class="upload-label">클릭하거나 이미지를 드래그하여 업로드</span>
+          <span class="upload-hint">PNG 투명배경 권장 · 400×200px · 500KB 이하 · SVG 가능</span>
+        </div>
+        <div class="clients-admin-grid" id="clientsAdminGrid"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ===== MODAL ===== -->
+  <div id="modal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">항목 추가</h2>
+        <button class="modal-close" id="modalClose" aria-label="닫기">✕</button>
+      </div>
+
+      <form id="portfolioForm" class="modal-form">
+        <input type="hidden" id="formId">
+
+        <div class="form-grid">
+          <div class="field-group">
+            <label>클라이언트 <span class="required">*</span></label>
+            <input type="text" id="formName" placeholder="예: MBC C&I" required>
+          </div>
+          <div class="field-group">
+            <label>정렬 순서 <span class="hint">— 1~12위가 메인 노출</span></label>
+            <input type="number" id="formSortOrder" placeholder="숫자 입력 (낮을수록 앞, 1~12 = 메인)" min="0">
+            <label class="featured-check">
+              <input type="checkbox" id="formFeatured">
+              <span>메인 노출</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>카테고리 <span class="hint">(복수 선택 가능)</span></label>
+          <div class="category-check-group">
+            <label class="check-item"><input type="checkbox" name="category" value="web"><span>웹사이트</span></label>
+            <label class="check-item"><input type="checkbox" name="category" value="design"><span>디자인</span></label>
+            <label class="check-item"><input type="checkbox" name="category" value="program"><span>프로그램</span></label>
+            <label class="check-item"><input type="checkbox" name="category" value="marketing"><span>마케팅</span></label>
+            <label class="check-item"><input type="checkbox" name="category" value="video"><span>동영상</span></label>
+            <label class="check-item"><input type="checkbox" name="category" value="etc"><span>기타</span></label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>세부 용역 <span class="hint">(쉼표로 구분, 예: 웹개발, UI/UX)</span></label>
+          <input type="text" id="formTags" placeholder="웹개발, UI/UX, 반응형">
+        </div>
+
+        <div class="field-group">
+          <label>로고 이미지 <span class="hint">(1장)</span></label>
+          <div class="upload-area" id="thumbUploadArea">
+            <input type="file" id="thumbFile" accept="image/*" class="file-input">
+            <div class="upload-placeholder" id="thumbPlaceholder">
+              <span class="upload-icon">↑</span>
+              <span>클릭 또는 드래그하여 이미지 업로드</span>
+            </div>
+            <img id="thumbPreview" class="img-preview hidden" alt="로고 이미지 미리보기">
+          </div>
+          <p class="upload-guide">권장: 800×600px · JPG/WebP · 1MB 이하</p>
+        </div>
+
+        <div class="field-group">
+          <label>상세 이미지 <span class="hint">(여러 장 가능)</span></label>
+          <div class="upload-area" id="detailUploadArea">
+            <input type="file" id="detailFiles" accept="image/*" multiple class="file-input">
+            <div class="upload-placeholder" id="detailPlaceholder">
+              <span class="upload-icon">↑</span>
+              <span>클릭하여 이미지 선택 (여러 장 가능)</span>
+            </div>
+            <div id="detailPreviewList" class="detail-preview-list"></div>
+          </div>
+          <p class="upload-guide">권장: 1920×1080px 이하 · JPG/WebP · 장당 3MB 이하</p>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" id="cancelBtn">취소</button>
+          <button type="submit" class="btn-primary" id="saveBtn">저장</button>
+        </div>
+
+        <p class="form-error hidden" id="formError"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== DELETE CONFIRM ===== -->
+  <div id="deleteConfirm" class="modal-overlay hidden">
+    <div class="confirm-box">
+      <p class="confirm-text">이 항목을 삭제하시겠습니까?<br><strong id="deleteTargetName"></strong></p>
+      <div class="confirm-actions">
+        <button class="btn-ghost" id="cancelDeleteBtn">취소</button>
+        <button class="btn-danger" id="confirmDeleteBtn">삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

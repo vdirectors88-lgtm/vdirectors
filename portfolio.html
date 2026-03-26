@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VDIRECTORS — Portfolio</title>
+  <meta property="og:title" content="VDIRECTORS — We Direct Your Value">
+  <meta property="og:description" content="소프트웨어 개발, 홈페이지 제작, UI/UX 디자인, 시각디자인, 마케팅">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vdirectors.com">
+  <meta property="og:image" content="https://vdirectors.com/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23111'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='700' font-size='18' fill='white'>V</text></svg>">
+  <meta name="description" content="브이디렉터스 포트폴리오 | 웹 개발, 브랜드 디자인 작업물">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page">
+
+  <div id="scrollProgress"></div>
+
+  <nav id="nav">
+    <a href="index.html" class="nav-logo">VDIRECTORS</a>
+    <ul class="nav-links">
+      <li><a href="about.html">ABOUT</a></li>
+      <li><a href="services.html">SERVICES</a></li>
+      <li><a href="portfolio.html" class="nav-active">PORTFOLIO</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+    <button class="nav-mobile-btn" id="mobileMenuBtn" aria-label="메뉴">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="about.html">ABOUT</a></li>
+      <li><a href="services.html">SERVICES</a></li>
+      <li><a href="portfolio.html">PORTFOLIO</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <span class="page-hero-label">OUR WORKS</span>
+    <h1 class="page-hero-title">Portfolio</h1>
+  </div>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="portfolio-page-section">
+    <div class="section-header portfolio-section-header">
+      <div class="portfolio-filter">
+        <button class="filter-btn active" data-filter="all">ALL</button>
+        <button class="filter-btn" data-filter="web">WEB</button>
+        <button class="filter-btn" data-filter="design">DESIGN</button>
+        <button class="filter-btn" data-filter="program">프로그램</button>
+        <button class="filter-btn" data-filter="marketing">마케팅</button>
+        <button class="filter-btn" data-filter="video">영상제작</button>
+      </div>
+    </div>
+    <div class="portfolio-grid" id="portfolioGrid"></div>
+  </section>
+
+  <!-- ===== CLIENTS ===== -->
+  <section class="clients-section">
+    <span class="clients-label">TRUSTED BY</span>
+    <div class="clients-grid" id="clientsGrid"></div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <p class="footer-logo">VDIRECTORS</p>
+        <p class="footer-slogan">We Direct Your Value</p>
+      </div>
+      <div class="footer-right">
+        <p>인천광역시 연수구 송도과학로56, 송도테크노파크BT센터 1401호</p>
+        <p>(주)브이디렉터스 · 대표 손휘민 · 사업자등록번호 713-81-02573</p>
+        <p>contact@vdirectors.com · <a href="tel:01089370257" class="footer-tel">Tel. 010-8937-0257</a></p>
+        <p class="footer-copy"></p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/transitions.js"></script>
+  <script>
+    // Clients 동적 렌더링 (Supabase → 없으면 정적 폴백)
+    (async function loadClients() {
+      const grid = document.getElementById('clientsGrid');
+      if (!grid) return;
+
+      const { data } = await window.supabase.from('clients').select('*').order('sort_order');
+
+      let html = '';
+      if (data && data.length) {
+        html = data.map(item =>
+          `<div class="client-logo reveal"><img src="${item.logo_url}" alt="Client" loading="lazy"></div>`
+        ).join('');
+      } else {
+        // 정적 폴백 — Admin에서 로고 업로드 전까지 사용
+        html = Array.from({ length: 25 }, (_, i) =>
+          `<div class="client-logo reveal"><img src="assets/clients/cl_${String(i + 1).padStart(2, '0')}.png" alt="Client" loading="lazy"></div>`
+        ).join('');
+      }
+
+      grid.innerHTML = html;
+      const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); revealObs.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      grid.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    })();
+  </script>
+</body>
+</html>

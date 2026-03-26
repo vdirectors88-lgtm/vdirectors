@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>VDIRECTORS — 포트폴리오 시딩</title>
+  <style>
+    body { font-family: sans-serif; max-width: 700px; margin: 60px auto; padding: 0 20px; }
+    h1 { font-size: 20px; margin-bottom: 8px; }
+    p  { color: #555; font-size: 14px; margin-bottom: 24px; }
+    button {
+      padding: 12px 28px; background: #111; color: #fff;
+      border: none; border-radius: 6px; font-size: 15px;
+      cursor: pointer; margin-bottom: 24px;
+    }
+    button:disabled { background: #999; cursor: not-allowed; }
+    pre {
+      background: #f5f5f5; border: 1px solid #ddd; border-radius: 6px;
+      padding: 16px; font-size: 13px; line-height: 1.6;
+      white-space: pre-wrap; word-break: break-all; max-height: 400px; overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>포트폴리오 시딩 스크립트</h1>
+  <p>버튼을 클릭하면 24개 포트폴리오 데이터를 Supabase에 자동 입력합니다.<br>
+     이미 존재하는 항목은 sort_order 기준으로 upsert(중복 방지)됩니다.</p>
+  <button id="seedBtn">시딩 시작</button>
+  <pre id="log">결과가 여기 표시됩니다.</pre>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script>
+    const portfolioData = [
+      { sort_order: 1,  name: 'MBC C&I',         category: 'web',    tags: ['웹사이트'], thumb_url: 'assets/portfolio/img/pt1.png' },
+      { sort_order: 2,  name: '연세대학교',         category: 'web',    tags: ['웹사이트'], thumb_url: 'assets/portfolio/img/pt2.png' },
+      { sort_order: 3,  name: 'VARRAM',           category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt3.png' },
+      { sort_order: 4,  name: '진해양봉',           category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt4.png' },
+      { sort_order: 5,  name: '육대장',            category: 'web',    tags: ['웹사이트'], thumb_url: 'assets/portfolio/img/pt6.png' },
+      { sort_order: 6,  name: 'b belladörr',     category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt7.png' },
+      { sort_order: 7,  name: 'AIinsight',        category: 'web',    tags: ['웹사이트'], thumb_url: 'assets/portfolio/img/pt8.png' },
+      { sort_order: 8,  name: 'BESTSOLUTION',     category: 'web',    tags: ['웹사이트'], thumb_url: 'assets/portfolio/img/pt9.png' },
+      { sort_order: 9,  name: '나무감정평가법인',     category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt12.png' },
+      { sort_order: 10, name: '피플인아트',          category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt13.png' },
+      { sort_order: 11, name: 'THELSTAR',         category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt15.png' },
+      { sort_order: 12, name: 'MOMENTO',          category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt18.png' },
+      { sort_order: 13, name: 'SA',               category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt20.png' },
+      { sort_order: 14, name: 'LA FLORELLE',      category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt21.png' },
+      { sort_order: 15, name: 'CLEANHARA',        category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt23.png' },
+      { sort_order: 16, name: 'DAEKYUNG ESCO',    category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt24.png' },
+      { sort_order: 17, name: 'KEMY',             category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt28.png' },
+      { sort_order: 18, name: 'ABCLABS',          category: 'web',    tags: ['웹사이트'], thumb_url: 'assets/portfolio/img/pt30.png' },
+      { sort_order: 19, name: 'PROPER COMPANY',   category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt31.png' },
+      { sort_order: 20, name: 'HYPHEN',           category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt32.png' },
+      { sort_order: 21, name: 'CBS',              category: 'web',    tags: ['웹사이트'], thumb_url: 'assets/portfolio/img/pt33.png' },
+      { sort_order: 22, name: 'ECO Bio',          category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt34.png' },
+      { sort_order: 23, name: 'BLAZAR',           category: 'web',    tags: ['웹사이트'], thumb_url: 'assets/portfolio/img/pt35.png' },
+      { sort_order: 24, name: 'YAMOUZINE BROS',   category: 'design', tags: ['디자인'],   thumb_url: 'assets/portfolio/img/pt37.png' },
+    ];
+
+    const logEl  = document.getElementById('log');
+    const seedBtn = document.getElementById('seedBtn');
+
+    function appendLog(msg) {
+      logEl.textContent += msg + '\n';
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    seedBtn.addEventListener('click', async () => {
+      seedBtn.disabled = true;
+      logEl.textContent = '';
+      appendLog('시딩 시작...\n');
+
+      let success = 0;
+      let fail    = 0;
+
+      for (const item of portfolioData) {
+        const { error } = await window.supabase
+          .from('portfolio')
+          .upsert(item, { onConflict: 'sort_order' });
+
+        if (error) {
+          appendLog(`❌ [${item.sort_order}] ${item.name} — 실패: ${error.message}`);
+          fail++;
+        } else {
+          appendLog(`✅ [${item.sort_order}] ${item.name}`);
+          success++;
+        }
+      }
+
+      appendLog(`\n완료: 성공 ${success}개 / 실패 ${fail}개`);
+      seedBtn.disabled = false;
+      seedBtn.textContent = '다시 실행';
+    });
+  </script>
+</body>
+</html>

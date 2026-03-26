@@ -1,0 +1,9 @@
+# 내부 작업 파일 (GitHub에 올리지 않음)
+team/
+tools/
+
+# 기타
+.DS_Store
+Thumbs.db
+*.py
+compile_final.py

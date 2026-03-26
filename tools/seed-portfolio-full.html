@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>VDIRECTORS — 포트폴리오 전체 시딩 (38개)</title>
+  <style>
+    body { font-family: sans-serif; max-width: 700px; margin: 60px auto; padding: 0 20px; }
+    h1 { font-size: 20px; margin-bottom: 8px; }
+    p  { color: #555; font-size: 14px; margin-bottom: 24px; }
+    button {
+      padding: 12px 28px; background: #111; color: #fff;
+      border: none; border-radius: 6px; font-size: 15px;
+      cursor: pointer; margin-bottom: 24px;
+    }
+    button:disabled { background: #999; cursor: not-allowed; }
+    pre {
+      background: #f5f5f5; border: 1px solid #ddd; border-radius: 6px;
+      padding: 16px; font-size: 13px; line-height: 1.6;
+      white-space: pre-wrap; word-break: break-all; max-height: 500px; overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>포트폴리오 전체 시딩 (38개)</h1>
+  <p>확정 24개 + 신규 14개 = 총 38개.<br>
+     <strong>name 기준 upsert</strong> — 이미 존재하는 항목은 덮어씁니다.<br>
+     ⚠️ 상세 이미지는 구 사이트(vdirectors.com) URL을 사용합니다. 추후 Supabase Storage로 이전 권장.</p>
+  <button id="seedBtn">시딩 시작</button>
+  <pre id="log">결과가 여기 표시됩니다.</pre>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script>
+    const BASE = 'https://vdirectors.com/bizdemo119798/component/board/board_7/u_image';
+
+    const portfolioData = [
+      /* ===== 확정 24개 ===== */
+      {
+        sort_order: 1, name: 'MBC C&I', category: 'web',
+        tags: ['라이브커머스', '브랜드전략', '마케팅'],
+        thumb_url: 'assets/portfolio/img/pt1.png',
+        detail_images: [
+          `${BASE}/89/1371803491_EBA788ECBC93EC97A0EBB0A9.png`,
+          `${BASE}/89/1423987658_KakaoTalk_20211220_154051846_01.png`,
+        ],
+      },
+      {
+        sort_order: 2, name: '연세대학교', category: 'web',
+        tags: ['홈페이지 제작'],
+        thumb_url: 'assets/portfolio/img/pt2.png',
+        detail_images: [
+          `${BASE}/105/878223160_sum.png`,
+          `${BASE}/105/983697142_EC97B0EC84B8EB8C80ED9599EAB590.png`,
+        ],
+      },
+      {
+        sort_order: 3, name: 'VARRAM', category: 'design',
+        tags: ['브랜딩', '패키지 디자인'],
+        thumb_url: 'assets/portfolio/img/pt3.png',
+        detail_images: [
+          `${BASE}/98/104055273_KakaoTalk_20211216_165234283_01.png`,
+          `${BASE}/98/447630289_1.jpg`,
+        ],
+      },
+      {
+        sort_order: 4, name: '진해양봉', category: 'design',
+        tags: ['패키지 디자인', '브랜딩'],
+        thumb_url: 'assets/portfolio/img/pt4.png',
+        detail_images: [
+          `${BASE}/94/9277278_KakaoTalk_20211209_162206854.png`,
+          `${BASE}/94/193014864_KakaoTalk_20211209_162952607.png`,
+        ],
+      },
+      {
+        sort_order: 5, name: '육대장', category: 'web',
+        tags: ['홈페이지 제작', '패키지 디자인'],
+        thumb_url: 'assets/portfolio/img/pt6.png',
+        detail_images: [
+          `${BASE}/100/1390286663_KakaoTalk_20211130_154901026_02.png`,
+          `${BASE}/100/1019896476_KakaoTalk_20211202_102040658.png`,
+        ],
+      },
+      {
+        sort_order: 6, name: 'b belladörr', category: 'design',
+        tags: ['브랜드 아이덴티티', '패키지 디자인'],
+        thumb_url: 'assets/portfolio/img/pt7.png',
+        detail_images: [
+          `${BASE}/93/1353488556_KakaoTalk_20211207_172729601_01.png`,
+          `${BASE}/93/145101798_KakaoTalk_20211207_172729601.png`,
+        ],
+      },
+      {
+        sort_order: 7, name: 'AIinsight', category: 'web',
+        tags: ['웹사이트 제작', '브랜딩', '마케팅'],
+        thumb_url: 'assets/portfolio/img/pt8.png',
+        detail_images: [
+          `${BASE}/95/1259828021_KakaoTalk_20211213_132839695_01.png`,
+          `${BASE}/95/1216149041_KakaoTalk_20220317_173618716.png`,
+        ],
+      },
+      {
+        sort_order: 8, name: 'BESTSOLUTION', category: 'web',
+        tags: ['상품 기획', '홈페이지 제작'],
+        thumb_url: 'assets/portfolio/img/pt9.png',
+        detail_images: [
+          `${BASE}/108/2013017526_EBB2A0EC8AA4ED8AB8EC8694EBA3A8EC8598.png`,
+          `${BASE}/108/174391149_KakaoTalk_20220113_145827007.png`,
+        ],
+      },
+      {
+        sort_order: 9, name: '나무감정평가법인', category: 'web',
+        tags: ['홈페이지 제작', 'SNS 마케팅'],
+        thumb_url: 'assets/portfolio/img/pt12.png',
+        detail_images: [
+          `${BASE}/103/80735794_KakaoTalk_20211201_150112543.png`,
+          `${BASE}/103/1206120693_p1.png`,
+        ],
+      },
+      {
+        sort_order: 10, name: '피플인아트', category: 'design',
+        tags: ['브랜딩', '패턴 디자인'],
+        thumb_url: 'assets/portfolio/img/pt13.png',
+        detail_images: [
+          `${BASE}/88/2067287123_KakaoTalk_20211220_171618450.png`,
+          `${BASE}/88/1726996387_KakaoTalk_20211220_171618450_01.png`,
+        ],
+      },
+      {
+        sort_order: 11, name: 'THELSTAR', category: 'design',
+        tags: ['상품 개발', '브랜드 네임', '패키징 디자인'],
+        thumb_url: 'assets/portfolio/img/pt15.png',
+        detail_images: [
+          `${BASE}/101/318446999_KakaoTalk_20211130_153903451.jpg`,
+          `${BASE}/101/1170218026_0.png`,
+        ],
+      },
+      {
+        sort_order: 12, name: 'MOMENTO', category: 'design',
+        tags: ['상품 개발', '패키징'],
+        thumb_url: 'assets/portfolio/img/pt18.png',
+        detail_images: [
+          `${BASE}/99/1247341156_KakaoTalk_20211221_131729086_01.png`,
+          `${BASE}/99/754700729_0123.png`,
+        ],
+      },
+      {
+        sort_order: 13, name: 'SA', category: 'design',
+        tags: ['브랜딩 전략', 'BI 개발'],
+        thumb_url: 'assets/portfolio/img/pt20.png',
+        detail_images: [
+          `${BASE}/91/946805304_KakaoTalk_20220106_101146661.png`,
+          `${BASE}/91/1614750510_1.jpg`,
+          `${BASE}/91/91718816_side.jpg`,
+        ],
+      },
+      {
+        sort_order: 14, name: 'LA FLORELLE', category: 'design',
+        tags: ['패키지 디자인', '브랜딩'],
+        thumb_url: 'assets/portfolio/img/pt21.png',
+        detail_images: [
+          `${BASE}/90/196753165_KakaoTalk_20220105_150024598.png`,
+          `${BASE}/90/1790507498_KakaoTalk_20220105_150023272.png`,
+        ],
+      },
+      {
+        sort_order: 15, name: 'CLEANHARA', category: 'design',
+        tags: ['상품 기획', '패키지 디자인'],
+        thumb_url: 'assets/portfolio/img/pt23.png',
+        detail_images: [
+          `${BASE}/110/945863499_KakaoTalk_20220113_105722409_01.jpg`,
+          `${BASE}/110/62670203_KakaoTalk_20220113_105722409.png`,
+        ],
+      },
+      {
+        sort_order: 16, name: 'DAEKYUNG ESCO', category: 'design',
+        tags: ['홈쇼핑 운영', '패키징'],
+        thumb_url: 'assets/portfolio/img/pt24.png',
+        detail_images: [
+          `${BASE}/106/798774877_2.png`,
+          `${BASE}/106/89253666_1.png`,
+        ],
+      },
+      {
+        sort_order: 17, name: 'KEMY', category: 'design',
+        tags: ['시각 디자인'],
+        thumb_url: 'assets/portfolio/img/pt28.png',
+        detail_images: [],
+      },
+      {
+        sort_order: 18, name: 'ABCLABS', category: 'web',
+        tags: ['홈페이지 제작', '로고·CI 디자인'],
+        thumb_url: 'assets/portfolio/img/pt30.png',
+        detail_images: [],
+      },
+      {
+        sort_order: 19, name: 'PROPER COMPANY', category: 'design',
+        tags: ['홈쇼핑 운영', '패키지 디자인'],
+        thumb_url: 'assets/portfolio/img/pt31.png',
+        detail_images: [
+          `${BASE}/115/858429418_KakaoTalk_20220317_173635969.jpg`,
+          `${BASE}/115/2008263878_KakaoTalk_20220317_173635969_01.jpg`,
+        ],
+      },
+      {
+        sort_order: 20, name: 'HYPHEN', category: 'design',
+        tags: ['광고 영상', '타이틀 디자인'],
+        thumb_url: 'assets/portfolio/img/pt32.png',
+        detail_images: [
+          `${BASE}/157/2136366121_ED9598EC9DB4ED9488-sum.png`,
+          `${BASE}/157/799797736_ED9598EC9DB4ED9488.png`,
+        ],
+      },
+      {
+        sort_order: 21, name: 'CBS', category: 'video',
+        tags: ['기업 홍보 영상', 'CM송 제작'],
+        thumb_url: 'assets/portfolio/img/pt33.png',
+        detail_images: [
+          `${BASE}/158/700587165_cbs-sum.png`,
+          `${BASE}/158/905184949_cbs.png`,
+        ],
+      },
+      {
+        sort_order: 22, name: 'ECO Bio', category: 'design',
+        tags: ['패키지 디자인', '브랜딩'],
+        thumb_url: 'assets/portfolio/img/pt34.png',
+        detail_images: [
+          `${BASE}/161/2028273371_1.png`,
+          `${BASE}/161/506208348_2.png`,
+        ],
+      },
+      {
+        sort_order: 23, name: 'BLAZAR', category: 'web',
+        tags: ['홈페이지 제작', '마케팅'],
+        thumb_url: 'assets/portfolio/img/pt35.png',
+        detail_images: [
+          `${BASE}/162/496906330_1.png`,
+          `${BASE}/162/1868930469_2.png`,
+        ],
+      },
+      {
+        sort_order: 24, name: 'YAMOUZINE BROS', category: 'design',
+        tags: ['패키지 디자인', '브랜딩'],
+        thumb_url: 'assets/portfolio/img/pt37.png',
+        detail_images: [
+          `${BASE}/159/1429405485_1.png`,
+          `${BASE}/159/1446255876_2.png`,
+        ],
+      },
+
+      /* ===== 신규 14개 ===== */
+      {
+        sort_order: 25, name: '삼성증권', category: 'design',
+        tags: ['어드바이저리 머터리얼', '시각 디자인'],
+        thumb_url: 'assets/portfolio/img/pt_new_156.png',
+        detail_images: [
+          `${BASE}/156/1204875945_EC96B4ED948CEB9DBCEC9DB4EB939C-EBA8B8ED84B0EBA6ACEC96BCECA688-sum.png`,
+          `${BASE}/156/1147643848_EC96B4ED948CEB9DBCEC9DB4EB939C-EBA8B8ED84B0EBA6ACEC96BCECA688.png`,
+        ],
+      },
+      {
+        sort_order: 26, name: '인천도시공사', category: 'design',
+        tags: ['광고 영상', '시각 디자인'],
+        thumb_url: 'assets/portfolio/img/pt_new_157.png',
+        detail_images: [],
+      },
+      {
+        sort_order: 27, name: 'HAM', category: 'design',
+        tags: ['패키지 디자인'],
+        thumb_url: 'assets/portfolio/img/pt_new_163.png',
+        detail_images: [
+          `${BASE}/163/1805616598_EC8DB8EB84A4EC9DBC.png`,
+          `${BASE}/163/640434951_ED8FACED8FB4.png`,
+        ],
+      },
+      {
+        sort_order: 28, name: '더그린', category: 'marketing',
+        tags: ['SNS 마케팅', '콘텐츠 제작'],
+        thumb_url: 'assets/portfolio/img/pt_new_164.png',
+        detail_images: [
+          `${BASE}/164/1692045277_EAB7B8EBA6B0ED8CAC-EC8DB8EB84A4EC9DBC.png`,
+          `${BASE}/164/1105533263_EAB7B8EBA6B0ED8CAC-ED8FACED8FB4.png`,
+        ],
+      },
+      {
+        sort_order: 29, name: '라이프뷰티아', category: 'web',
+        tags: ['홈페이지 제작'],
+        thumb_url: 'assets/portfolio/img/pt_new_165.png',
+        detail_images: [
+          `${BASE}/165/92253979_EC8DB8EB84A4EC9DBC.png`,
+          `${BASE}/165/16387620_ED8FACED8AB8ED8FB4EBA6ACEC98A4.png`,
+        ],
+      },
+      {
+        sort_order: 30, name: 'BNI', category: 'video',
+        tags: ['기업 홍보 영상'],
+        thumb_url: 'assets/portfolio/img/pt_new_170.png',
+        detail_images: [
+          `${BASE}/170/890861822_1.jpg`,
+          `${BASE}/170/1879761838_3.jpg`,
+        ],
+      },
+      {
+        sort_order: 31, name: '하트립', category: 'design',
+        tags: ['패키지 디자인'],
+        thumb_url: 'assets/portfolio/img/pt_new_171.png',
+        detail_images: [
+          `${BASE}/171/494494025_1.jpg`,
+        ],
+      },
+      {
+        sort_order: 32, name: '다른공간', category: 'design',
+        tags: ['시각 디자인'],
+        thumb_url: 'assets/portfolio/img/pt_new_172.png',
+        detail_images: [
+          `${BASE}/172/2134810075_1.jpg`,
+          `${BASE}/172/741383796_2.jpg`,
+        ],
+      },
+      {
+        sort_order: 33, name: '렘디아', category: 'video',
+        tags: ['기업 홍보 영상'],
+        thumb_url: 'assets/portfolio/img/pt_new_173.png',
+        detail_images: [
+          `${BASE}/173/1934484040_1.jpg`,
+        ],
+      },
+      {
+        sort_order: 34, name: '남성보약', category: 'design',
+        tags: ['패키지 디자인'],
+        thumb_url: 'assets/portfolio/img/pt_new_174.png',
+        detail_images: [
+          `${BASE}/174/1110319375_1.jpg`,
+          `${BASE}/174/933096778_2.jpg`,
+        ],
+      },
+      {
+        sort_order: 35, name: 'ARK', category: 'design',
+        tags: ['브랜딩', '패키지 디자인'],
+        thumb_url: 'assets/portfolio/img/pt_new_179.png',
+        detail_images: [
+          `${BASE}/179/164470414_EC9584ED81ACEC8DB8.png`,
+          `${BASE}/179/362829291_EC9584ED81AC2.png`,
+        ],
+      },
+      {
+        sort_order: 36, name: '자심', category: 'design',
+        tags: ['패키지 디자인'],
+        thumb_url: 'assets/portfolio/img/pt_new_180.png',
+        detail_images: [
+          `${BASE}/180/100310120_1.jpg`,
+        ],
+      },
+    ];
+
+    const logEl   = document.getElementById('log');
+    const seedBtn = document.getElementById('seedBtn');
+
+    function appendLog(msg) {
+      logEl.textContent += msg + '\n';
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    seedBtn.addEventListener('click', async () => {
+      seedBtn.disabled = true;
+      logEl.textContent = '';
+      appendLog(`시딩 시작 — 총 ${portfolioData.length}개\n`);
+
+      let success = 0;
+      let fail    = 0;
+
+      for (const item of portfolioData) {
+        const { error } = await window.supabase
+          .from('portfolio')
+          .upsert(item, { onConflict: 'sort_order' });
+
+        if (error) {
+          appendLog(`❌ [${item.sort_order}] ${item.name} — 실패: ${error.message}`);
+          fail++;
+        } else {
+          appendLog(`✅ [${item.sort_order}] ${item.name}`);
+          success++;
+        }
+      }
+
+      appendLog(`\n완료: 성공 ${success}개 / 실패 ${fail}개`);
+      seedBtn.disabled = false;
+      seedBtn.textContent = '다시 실행';
+    });
+  </script>
+</body>
+</html>

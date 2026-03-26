@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VDIRECTORS — Portfolio</title>
+  <meta property="og:title" content="VDIRECTORS — We Direct Your Value">
+  <meta property="og:description" content="소프트웨어 개발, 홈페이지 제작, UI/UX 디자인, 시각디자인, 마케팅">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vdirectors.com">
+  <meta property="og:image" content="https://vdirectors.com/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23111'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='700' font-size='18' fill='white'>V</text></svg>">
+  <meta name="description" content="브이디렉터스 포트폴리오 상세">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/detail.css">
+</head>
+<body class="detail-page">
+
+  <div id="scrollProgress"></div>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <a href="index.html" class="nav-logo">VDIRECTORS</a>
+    <ul class="nav-links">
+      <li><a href="about.html">ABOUT</a></li>
+      <li><a href="services.html">SERVICES</a></li>
+      <li><a href="portfolio.html">PORTFOLIO</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+    <button class="nav-mobile-btn" id="mobileMenuBtn" aria-label="메뉴">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="about.html">ABOUT</a></li>
+      <li><a href="services.html">SERVICES</a></li>
+      <li><a href="portfolio.html">PORTFOLIO</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <!-- Detail Content -->
+  <main class="detail-main" id="detailMain">
+    <div class="detail-loading" id="detailLoading">
+      <span class="loading-dot"></span>
+    </div>
+    <div class="detail-body" id="detailBody" style="display:none">
+      <!-- Back -->
+      <div class="detail-back-wrap">
+        <a href="portfolio.html" class="detail-back">← PORTFOLIO</a>
+      </div>
+      <!-- Header -->
+      <div class="detail-header">
+        <span class="detail-cat" id="detailCat"></span>
+        <h1 class="detail-name" id="detailName"></h1>
+        <p class="detail-tags" id="detailTags"></p>
+      </div>
+      <!-- Images -->
+      <div class="detail-images" id="detailImages"></div>
+      <!-- Nav -->
+      <div class="detail-nav-wrap" id="detailNavWrap"></div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <p class="footer-logo">VDIRECTORS</p>
+        <p class="footer-slogan">We Direct Your Value</p>
+      </div>
+      <div class="footer-right">
+        <p>인천광역시 연수구 송도과학로56, 송도테크노파크BT센터 1401호</p>
+        <p>(주)브이디렉터스 · 대표 손휘민 · 사업자등록번호 713-81-02573</p>
+        <p>contact@vdirectors.com · <a href="tel:01089370257" class="footer-tel">Tel. 010-8937-0257</a></p>
+        <p class="footer-copy"></p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/detail.js"></script>
+  <script src="js/transitions.js"></script>
+</body>
+</html>

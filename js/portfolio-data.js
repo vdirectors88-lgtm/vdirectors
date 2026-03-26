@@ -1,0 +1,60 @@
+/* ============================================
+   VDIRECTORS — portfolio-data.js
+   포트폴리오 데이터 (index.html + portfolio-detail.html 공유)
+   ============================================ */
+
+const portfolioData = [
+  { id: 'pt1',  name: 'MBC C&I',           category: 'web',    tags: ['홈페이지 개발', '마케팅'],
+    detailImages: ['assets/portfolio/detail/pt1/1.png'] },
+  { id: 'pt2',  name: '연세대학교',           category: 'web',    tags: ['홈페이지 개발'],
+    detailImages: ['assets/portfolio/detail/pt2/1.png'] },
+  { id: 'pt3',  name: 'VARRAM',             category: 'design', tags: ['브랜드 디자인', '로고'],
+    detailImages: ['assets/portfolio/detail/pt3/1.jpg'] },
+  { id: 'pt4',  name: '진해양봉',             category: 'design', tags: ['브랜드 디자인', '패키지'],
+    detailImages: ['assets/portfolio/detail/pt4/1.png'] },
+  { id: 'pt6',  name: '육대장',              category: 'web',    tags: ['홈페이지 개발', '디자인'],
+    detailImages: ['assets/portfolio/detail/pt6/1.png'] },
+  { id: 'pt7',  name: 'b belladörr',        category: 'design', tags: ['브랜드 디자인', '로고'],
+    detailImages: ['assets/portfolio/detail/pt7/1.png'] },
+  { id: 'pt8',  name: 'AIinsight',          category: 'web',    tags: ['홈페이지 개발', 'UI/UX'],
+    detailImages: ['assets/portfolio/detail/pt8/1.png'] },
+  { id: 'pt9',  name: 'BESTSOLUTION',       category: 'web',    tags: ['홈페이지 개발'],
+    detailImages: ['assets/portfolio/detail/pt9/1.png'] },
+  { id: 'pt12', name: '나무감정평가법인',       category: 'design', tags: ['로고 디자인'],
+    detailImages: ['assets/portfolio/detail/pt12/1.png'] },
+  { id: 'pt13', name: '피플인아트',            category: 'design', tags: ['브랜드 디자인'],
+    detailImages: ['assets/portfolio/detail/pt13/1.png'] },
+  { id: 'pt15', name: 'THELSTAR',           category: 'design', tags: ['브랜드 디자인', '로고'],
+    detailImages: ['assets/portfolio/detail/pt15/1.png'] },
+  { id: 'pt18', name: 'MOMENTO',            category: 'design', tags: ['브랜드 디자인'],
+    detailImages: ['assets/portfolio/detail/pt18/1.png'] },
+  { id: 'pt20', name: 'SA',                 category: 'design', tags: ['로고 디자인'],
+    detailImages: ['assets/portfolio/detail/pt20/1.jpg'] },
+  { id: 'pt21', name: 'LA FLORELLE',        category: 'design', tags: ['브랜드 디자인', '패키지'],
+    detailImages: ['assets/portfolio/detail/pt21/1.png'] },
+  { id: 'pt23', name: 'CLEANHARA',          category: 'design', tags: ['브랜드 디자인'],
+    detailImages: ['assets/portfolio/detail/pt23/1.png'] },
+  { id: 'pt24', name: 'DAEKYUNG ESCO',      category: 'design', tags: ['로고 디자인'],
+    detailImages: ['assets/portfolio/detail/pt24/1.png'] },
+  { id: 'pt28', name: 'KEMY',               category: 'design', tags: ['브랜드 디자인', '로고'] },
+  { id: 'pt30', name: 'ABCLABS',            category: 'web',    tags: ['홈페이지 개발', '로고 디자인'],
+    detailImages: ['assets/portfolio/detail/pt30/1.png'] },
+  { id: 'pt31', name: 'PROPER COMPANY',     category: 'design', tags: ['브랜드 디자인'],
+    detailImages: ['assets/portfolio/detail/pt31/1.jpg'] },
+  { id: 'pt32', name: 'HYPHEN',             category: 'design', tags: ['로고 디자인'],
+    detailImages: ['assets/portfolio/detail/pt32/1.png'] },
+  { id: 'pt33', name: 'CBS',                category: 'web',    tags: ['홈페이지 개발'],
+    detailImages: [
+      'assets/portfolio/detail/pt33/1.png',
+      'assets/portfolio/detail/pt33/2.png',
+    ]
+  },
+  { id: 'pt34', name: 'ECO Bio',            category: 'design', tags: ['브랜드 디자인', '로고'],
+    detailImages: ['assets/portfolio/detail/pt34/1.png'] },
+  { id: 'pt35', name: 'BLAZAR',             category: 'web',    tags: ['홈페이지 개발'],
+    detailImages: ['assets/portfolio/detail/pt35/1.png'] },
+  { id: 'pt37', name: 'YAMOUZINE BROS',     category: 'design', tags: ['브랜드 디자인'],
+    detailImages: ['assets/portfolio/detail/pt37/1.png'] },
+];
+
+const catLabel = { web: 'WEB', design: 'DESIGN' };
