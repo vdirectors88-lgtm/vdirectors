@@ -820,7 +820,7 @@ body {
 
 .client-logo-card:hover .delete-overlay { opacity: 1; }
 
-.delete-overlay .btn-delete {
+.delete-overlay .client-delete-btn {
   width: 32px;
   height: 32px;
   background: #fff;
@@ -835,7 +835,7 @@ body {
   transition: background var(--trans), transform var(--trans);
 }
 
-.delete-overlay .btn-delete:hover {
+.delete-overlay .client-delete-btn:hover {
   background: var(--danger);
   color: #fff;
   transform: scale(1.05);

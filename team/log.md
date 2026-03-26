@@ -349,6 +349,17 @@
   · B: @480px .form-success-state { padding: 32px 0 } 추가
   · C: :root에 --reply-green: #2ecc71 추가 / .reply-dot background → var(--reply-green, #2ecc71)
   · D: @480px .form-success-links { flex-direction: column; gap: 12px } 추가
+2026-03-27 | 개발자 | 42차 — 타 페이지 CONTACT 링크 해시 스크롤 버그 수정 — ✅ 완료
+  · main.js DOMContentLoaded 내 window.location.hash 감지 → 500ms 후 scrollIntoView (전환 애니메이션 460ms 이후)
+2026-03-27 | 개발자 | 43차 — 기획자23차 반영 D/E/F — ✅ 완료
+  · D: admin.css .delete-overlay .btn-delete → .client-delete-btn 교체 (hover 포함)
+  · E: main.js catLabel video '동영상' → '영상제작'
+  · F: style.css .hero-scroll-hint 관련 블록 전체 삭제 (.hero-scroll-hint / .scroll-line / ::after / @keyframes scanLine / .scroll-label + 반응형 2곳)
+2026-03-26 | 기획자 | 사이트 전체 버그 스캔 (23차) — ✅ 완료 (02_output.md)
+  · 🔴 admin.css `.btn-delete` → `.client-delete-btn` CSS 클래스 불일치 (삭제 버튼 hover 스타일 미적용)
+  · 🟡 video catLabel '동영상' vs 필터 버튼 '영상제작' 불일치 (main.js)
+  · 🟡 hero-scroll-hint dead CSS 3블록 잔존 (style.css)
+  · 🟢 이전 보고 정정: footer-copy "JS 누락" 오진 → main.js line 392에 코드 존재, 정상 작동 확인
 
 2026-03-26 | 어시스턴트 | Admin 버그 수정 (9차) — RLS 무음 실패 탐지 + 탭 전환 목록 소실 수정 — ✅ 완료
   · 문제 1: portfolio UPDATE가 RLS로 0행 업데이트 돼도 error=null → "저장 완료" 뜨며 실제로 저장 안됨
@@ -401,6 +412,14 @@
   · A: 포트폴리오 오버레이 rgba(10,10,10,0.86) → rgba(248,248,248,0.93) + backdrop-filter blur(8px) + 텍스트 검정 전환
   · B: Process .process-steps #1a1a1a→#2a2a2a / .process-step:hover #181818→#1e1e1e
   · C: index.html Contact 섹션 .contact-insta 블록 제거 + style.css .contact-insta 스타일 삭제
+2026-03-26 | 기획자 | 🔔 팀장 확인 요청 — 전반적 UI/UX 검토 결과 (23차) / 개발자 지시서 작성 요청
+  · 🔴 footer-copy 연도 비어있음 — JS 연도 삽입 코드 누락 (main.js에 추가 필요)
+  · 🔴 hero-scroll-hint 죽은 CSS — .hero-scroll-hint/.scroll-line/.scroll-label 블록 삭제 또는 HTML 복원
+  · 🟡 service-card:hover p 색상 변화 없음 — hover 전후 color:#777 동일, #aaa 등으로 변화 추가 권고
+  · 🟡 value-card reveal+hover transform 충돌 — specificity 의존, 명시적 정리 권고
+  · 🟡 filter-btn active 명확도 — gap 0 상태에서 구분 약함, gap 4px 또는 border 추가 권고
+  · 🟡 marquee hover #333→#111 피드백 약함 — #000 또는 텍스트 색 변화 추가 권고
+  · 🟢 #about CSS dead code / contact-phone 마지막 요소 여백 확인
 2026-03-26 | 어시스턴트 | 12차 — 구 사이트 기준 67개 수집 + seed-portfolio-final.html 생성 — ✅ 완료 (05_output.md)
   · vdirectors.com 6페이지 전체 스캔 / 67개 / thumb_url + detail_images(구 사이트 URL) 포함
   · tools/seed-portfolio-final.html 생성 (sort_order 기준 upsert)
@@ -417,3 +436,8 @@
   · sort_order 66 (육대장 홈페이지) DB 미존재 확인 → INSERT 완료 (category:design,web / tags:홈페이지 제작,패키지 디자인,제품 촬영)
   · ⚠️ 디자이너 19차 이슈 미반영: History 타임라인 var(--g4)→var(--g3) / form-success 480px 패딩 / reply-dot 변수화 / form-success-links 모바일 → 개발자 반영 필요
   · tools/migrate-detail-images.mjs 생성 — detail_images 구 사이트 URL → Supabase Storage 이전 스크립트 (DNS 전환 전 Boss가 직접 실행)
+2026-03-26 | 어시스턴트 | 15차(추가) — 전체 JS/HTML 버그 검토 완료 → 팀장 전달
+  · 🔴 Critical 2건: emailjs 미로드 성공표시(main.js:320) / detail 스크롤바 미작동(portfolio-detail.html)
+  · 🟡 Medium 5건: Admin 상세이미지 배치 소실(admin.js:427) / Sortable 중복생성(admin.js:675) / _isDragging 미복구(admin.js:719) / 필터 debounce 누락(main.js:236) / 영상 라벨 불일치(portfolio.html:59)
+  · 🟢 Low 2건: insta-fab 하드코딩 / XSS 잠재 위험
+  · README에 전체 수정 방향 포함하여 팀장 보고 완료

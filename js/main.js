@@ -5,6 +5,16 @@
 
 /* ===== 2. HERO 텍스트 리빌 + LABEL 스태거 ===== */
 window.addEventListener('DOMContentLoaded', () => {
+  // 해시로 진입한 경우 애니메이션 후 스크롤
+  if (window.location.hash) {
+    const target = document.querySelector(window.location.hash);
+    if (target) {
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
+    }
+  }
+
   // Hero headline: clip-path 리빌
   setTimeout(() => {
     document.querySelectorAll('.line').forEach(l => l.classList.add('animated'));
@@ -157,7 +167,7 @@ const countObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
 
 /* ===== 7. 포트폴리오 ===== */
-const catLabel = { web: 'WEB', design: 'DESIGN', program: '프로그램', marketing: '마케팅', video: '동영상', etc: '기타' };
+const catLabel = { web: 'WEB', design: 'DESIGN', program: '프로그램', marketing: '마케팅', video: '영상제작', etc: '기타' };
 
 function shuffleArray(arr) {
   const a = [...arr];

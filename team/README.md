@@ -147,6 +147,36 @@ admin.html          ← 포트폴리오 관리 (완성)
 
 ---
 
+## 🐛 어시스턴트 버그 검토 보고 — 팀장(1번) 확인 후 개발자(4번) 지시 필요 (2026-03-26)
+
+> **어시스턴트 → 팀장(1번)** | 전체 JS/HTML 코드 검토 완료
+
+### 🔴 Critical — 즉시 수정 필요
+
+| # | 위치 | 문제 | 수정 방향 |
+|---|------|------|-----------|
+| 1 | `main.js:320` | emailjs CDN 미로드 시 이메일 미전송인데 "문의 접수됨" 성공 표시 | `else { throw new Error('emailjs 로드 실패') }` 추가 |
+| 2 | `portfolio-detail.html` | `#scrollProgress` 존재하지만 `detail.js`에 스크롤 진행 처리 없음 → 항상 0% | `detail.js`에 `initScrollProgress()` 동일 로직 추가 |
+
+### 🟡 Medium — 우선순위 높음
+
+| # | 위치 | 문제 | 수정 방향 |
+|---|------|------|-----------|
+| 3 | `admin.js:427` | 상세 이미지 다중 배치 업로드 시 이전 배치 URL 소실 (`uploadedDetailUrls = []` 재초기화) → Storage 고아 파일 생성 | `uploadedDetailUrls = []` 제거 → `push` 방식으로 누적 |
+| 4 | `admin.js:675` | `loadClients()` 호출마다 `Sortable.create()` 중복 생성 → 탭 반복 전환 시 드래그 이벤트 다중 바인딩 | Sortable 인스턴스 변수로 관리, 이미 존재하면 skip |
+| 5 | `admin.js:719` | `_isDragging` dragenter에서 `true` 설정 후 drop 없이 드래그 아웃 시 미복구 → 이후 업로드 존 클릭 무반응 | `dragleave`에서 `_isDragging = false` 추가 |
+| 6 | `main.js:236` | 필터 빠른 클릭 시 300ms setTimeout 누적 실행 → 그리드 깜빡임 | `clearTimeout` debounce 처리 |
+| 7 | `portfolio.html:59` | 필터 버튼 라벨 `"영상제작"` vs 카드 오버레이 catLabel `"동영상"` 불일치 | 둘 중 하나로 통일 (catLabel `video` 값 또는 버튼 텍스트) |
+
+### 🟢 Low
+
+| # | 위치 | 문제 |
+|---|------|------|
+| 8 | `about/services/portfolio.html` | `insta-fab visible` 하드코딩 — 스크롤 무관 항상 노출 (기존 알려진 이슈) |
+| 9 | `main.js:182`, `detail.js:70` | `item.name` 비이스케이프 innerHTML 삽입 — Admin 신뢰 환경이므로 실질 위험 낮음 |
+
+---
+
 ## 현재 알려진 이슈
 
 - 디자인 파이프라인 계속 진행 중 (모션/커서/Impact)

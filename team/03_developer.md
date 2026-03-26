@@ -1,52 +1,30 @@
 # 개발자 작업지시서 — Claude #3
 
-완료 후: log.md 기록 → 팀장(Claude #1)에게 `"개발자 41차 완료 — [요약]"` 보고. 임의로 다음 작업 진행 금지.
+완료 후: log.md 기록 → 팀장(Claude #1)에게 `"개발자 43차 완료 — [요약]"` 보고. 임의로 다음 작업 진행 금지.
 
 ---
 
-## 현재 작업 (41차)
+## 현재 작업 (43차)
 
-`css/style.css` 미반영 CSS 4개 처리.
+기획자 23차 결과 반영. 3개 항목 처리.
 
 ---
 
-**A. History 타임라인 연도 색상**
+### D. `css/admin.css` — 클라이언트 삭제 버튼 클래스 교체 🔴
 
-```css
-/* 변경 */
-.history-year { color: var(--g3); }  /* 기존: var(--g4) */
+`.delete-overlay .btn-delete` → `.delete-overlay .client-delete-btn` 으로 교체 (hover 포함 2줄).
+
+---
+
+### E. `js/main.js` — video catLabel 통일 🟡
+
+```js
+// 변경
+video: '영상제작'   // 기존: '동영상'
 ```
 
 ---
 
-**B. form-success 480px 모바일 패딩**
+### F. `css/style.css` — hero-scroll-hint dead CSS 삭제 🟡
 
-`@media (max-width: 480px)` 블록 안에 추가:
-
-```css
-.form-success-state { padding: 32px 0; }
-```
-
----
-
-**C. reply-dot 색상 변수화**
-
-```css
-/* 변경 */
-.reply-dot { background: var(--reply-green, #2ecc71); }
-```
-
-`:root`에 추가:
-```css
---reply-green: #2ecc71;
-```
-
----
-
-**D. form-success-links 모바일 대응**
-
-`@media (max-width: 480px)` 블록 안에 추가:
-
-```css
-.form-success-links { flex-direction: column; gap: 12px; }
-```
+`.hero-scroll-hint` 관련 규칙 전체 삭제 (3개 블록).
