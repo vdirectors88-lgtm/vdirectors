@@ -53,6 +53,7 @@ let uploadedThumbUrl  = null;
 let existingThumbUrl  = null;
 let uploadedDetailUrls = [];
 let existingDetailUrls = [];
+let sortableInstance   = null;
 
 /* ===== SAVE INDICATOR ===== */
 const saveIndicator = document.createElement('div');
@@ -201,7 +202,11 @@ function renderList() {
 
 /* ===== SORTABLE ===== */
 function initSortable() {
-  Sortable.create(portfolioList, {
+  if (sortableInstance) {
+    sortableInstance.destroy();
+    sortableInstance = null;
+  }
+  sortableInstance = Sortable.create(portfolioList, {
     animation: 150,
     handle: '.drag-handle',
     ghostClass: 'sortable-ghost',
@@ -718,7 +723,7 @@ let _isDragging = false;
 clientsUploadZone.addEventListener('click', () => { if (!_isDragging) clientsFileInput.click(); });
 clientsUploadZone.addEventListener('dragenter', () => { _isDragging = true; });
 clientsUploadZone.addEventListener('dragover', e => { e.preventDefault(); clientsUploadZone.classList.add('drag-over'); });
-clientsUploadZone.addEventListener('dragleave', () => { clientsUploadZone.classList.remove('drag-over'); });
+clientsUploadZone.addEventListener('dragleave', () => { _isDragging = false; clientsUploadZone.classList.remove('drag-over'); });
 clientsUploadZone.addEventListener('drop', e => {
   e.preventDefault();
   _isDragging = false;

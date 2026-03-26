@@ -4,6 +4,7 @@
 
 body.detail-page {
   background: #fff;
+  overflow-y: auto;
 }
 
 /* ===== Loading ===== */

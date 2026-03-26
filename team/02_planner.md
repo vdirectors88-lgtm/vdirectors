@@ -1,27 +1,25 @@
 # 기획자 작업지시서 — Claude #2
 
-완료 후: log.md 기록 → 팀장(Claude #1)에게 `"기획자 23차 완료 — [요약]"` 보고. 임의로 다음 작업 진행 금지.
+완료 후: log.md 기록 → 팀장(Claude #1)에게 `"기획자 24차 완료 — [요약]"` 보고. 임의로 다음 작업 진행 금지.
 
 ---
 
-## 현재 작업 (23차)
+## 현재 작업 (24차)
 
-### 사이트 전체 버그 스캔
+### 최종 UX/디자인 점검
 
-현재 GitHub Pages에 배포된 상태 (`https://vdirectors88-lgtm.github.io/vdirectors`).
+배포 직전 최종 점검. 아래 파일 전체 읽고 사용자 관점에서 점검.
 
-아래 파일 전체를 직접 읽고 버그/UX 이슈를 찾아라:
-- `index.html`, `about.html`, `services.html`, `portfolio.html`, `portfolio-detail.html`, `admin.html`
-- `js/main.js`, `js/detail.js`, `js/admin.js`, `js/transitions.js`
-- `css/style.css`, `css/detail.css`, `css/admin.css`
+**점검 대상 파일:**
+`index.html`, `about.html`, `services.html`, `portfolio.html`, `portfolio-detail.html`
+`css/style.css`
 
-**찾아야 할 것:**
-- 🔴 기능 버그 (작동 안 되는 것)
-- 🟡 UX 이슈 (어색하거나 불완전한 것)
-- 🟢 개선 권고 (있으면 좋은 것)
+**점검 항목:**
+- 텍스트 오탈자 / 어색한 표현
+- 섹션 간 흐름 및 CTA 자연스러움
+- 모바일 반응형 CSS 누락 여부 (768px / 480px)
+- 폰트 크기 / 여백 / 색상 대비 이상
+- 호버 효과 / 애니메이션 의도대로 작동하는지
+- 빈 상태(포트폴리오 필터 결과 없음 등) 처리
 
-**`02_output.md`에 우선순위별로 정리해서 보고.**
-
-단, 아래는 이미 처리됐으니 제외:
-- Contact 다른 페이지 링크 버그 (3번 42차에서 수정 중)
-- 41차 CSS 4개 (history g3 / form-success 모바일 / reply-dot / form-success-links)
+**`02_output.md`에 우선순위별 정리 후 보고.**

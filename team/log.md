@@ -355,6 +355,16 @@
   · D: admin.css .delete-overlay .btn-delete → .client-delete-btn 교체 (hover 포함)
   · E: main.js catLabel video '동영상' → '영상제작'
   · F: style.css .hero-scroll-hint 관련 블록 전체 삭제 (.hero-scroll-hint / .scroll-line / ::after / @keyframes scanLine / .scroll-label + 반응형 2곳)
+2026-03-27 | 개발자 | 44차 — 배포 전 최종 점검 — ✅ 완료
+  · 점검 결과: 🔴 1건(detail.js catLabel video 불일치) / 🟡 2건(about·services Supabase CDN 없음·EmailJS 조건)
+  · 즉시 수정: detail.js catLabel video '동영상' → '영상제작' (main.js 43차 반영 누락 보완)
+  · 잔존 이슈: about/services Supabase CDN 미포함(현재 무해) / EmailJS 미로드 시 성공 표시(기존 알려진 이슈)
+2026-03-27 | 기획자 | 최종 UX/디자인 점검 (24차) — ✅ 완료 (02_output.md)
+  · 🟡 portfolio-item stagger delay 10~12번째 미정의 → 12개 표시 시 stagger 불완전
+  · 🟡 portfolio.html `etc` 카테고리 필터 버튼 없음 (catLabel에는 존재)
+  · 🟢 style.css dead CSS 3블록 — `#about`, `.modal-img-wrap/.modal-info`, `.insta-fab`
+  · 🟢 `.about-body` 중복 정의 (16px / 17px) — 정리 권고
+  · 🟢 portfolio.html Contact 유도 CTA 없음
 2026-03-26 | 기획자 | 사이트 전체 버그 스캔 (23차) — ✅ 완료 (02_output.md)
   · 🔴 admin.css `.btn-delete` → `.client-delete-btn` CSS 클래스 불일치 (삭제 버튼 hover 스타일 미적용)
   · 🟡 video catLabel '동영상' vs 필터 버튼 '영상제작' 불일치 (main.js)
@@ -441,3 +451,10 @@
   · 🟡 Medium 5건: Admin 상세이미지 배치 소실(admin.js:427) / Sortable 중복생성(admin.js:675) / _isDragging 미복구(admin.js:719) / 필터 debounce 누락(main.js:236) / 영상 라벨 불일치(portfolio.html:59)
   · 🟢 Low 2건: insta-fab 하드코딩 / XSS 잠재 위험
   · README에 전체 수정 방향 포함하여 팀장 보고 완료
+2026-03-27 | 어시스턴트 | 16차 — Supabase DB 최종 데이터 점검 완료
+  · portfolio 67개 전체 조회 완료
+  · sort_order 1~67 연속, 중복 없음 ✅ / name 공백 없음 ✅ / category 공백 없음 ✅ / is_featured 23개(12개 기준 충족) ✅
+  · ⚠️ 이상 항목 6건 목록화 → Boss 확인 필요 (직접 수정 금지)
+  · clients 24개 (25개 예상 대비 1개 부족) / logo_url 공백 없음 ✅
+
+2026-03-26 | 개발자 | 45차 A~J 전 항목 처리 완료 — EmailJS 버그 수정 / detail 스크롤 수정 / Admin Sortable 중복·_isDragging 버그 수정 / 필터 debounce / stagger 10~12 / etc 필터 / dead CSS 삭제 / about-body 중복 삭제 / portfolio CTA 추가 — ✅ 완료

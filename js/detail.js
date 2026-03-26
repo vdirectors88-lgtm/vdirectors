@@ -29,7 +29,7 @@ const copyEl = document.querySelector('.footer-copy');
 if (copyEl) copyEl.textContent = `© ${new Date().getFullYear()} VDIRECTORS. All rights reserved.`;
 
 /* ===== PORTFOLIO DETAIL ===== */
-const catLabel = { web: 'WEB', design: 'DESIGN', program: '프로그램', marketing: '마케팅', video: '동영상', etc: '기타' };
+const catLabel = { web: 'WEB', design: 'DESIGN', program: '프로그램', marketing: '마케팅', video: '영상제작', etc: '기타' };
 
 async function loadDetail() {
   const params = new URLSearchParams(window.location.search);

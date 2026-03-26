@@ -484,14 +484,6 @@ section { padding: 130px 60px; }
   align-items: start;
 }
 
-.about-body {
-  font-size: 16px;
-  line-height: 2;
-  color: var(--g1);
-  word-break: keep-all;
-  word-wrap: break-word;
-}
-
 .about-values { display: flex; flex-direction: column; }
 
 .value-item {
@@ -735,7 +727,10 @@ section { padding: 130px 60px; }
 .portfolio-item:nth-child(6) { --delay: 0.25s; }
 .portfolio-item:nth-child(7) { --delay: 0.3s;  }
 .portfolio-item:nth-child(8) { --delay: 0.35s; }
-.portfolio-item:nth-child(9) { --delay: 0.4s;  }
+.portfolio-item:nth-child(9)  { --delay: 0.4s;  }
+.portfolio-item:nth-child(10) { --delay: 0.45s; }
+.portfolio-item:nth-child(11) { --delay: 0.5s;  }
+.portfolio-item:nth-child(12) { --delay: 0.55s; }
 
 .portfolio-thumb {
   position: absolute;
@@ -1884,46 +1879,6 @@ body.page { background: var(--white); }
   .footer-right { text-align: left; }
   footer { padding: 36px 28px; }
 
-  .modal-img-wrap { padding: 32px; min-height: 260px; }
-  .modal-info { flex-wrap: wrap; gap: 10px; }
-}
-
-/* ===== INSTAGRAM FLOATING BUTTON ===== */
-.insta-fab {
-  position: fixed;
-  bottom: 36px;
-  right: 36px;
-  width: 52px;
-  height: 52px;
-  background: var(--black);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 900;
-  transition: transform 0.25s var(--ease), background 0.25s ease, opacity 0.3s ease;
-  opacity: 0;
-  pointer-events: none;
-}
-.insta-fab.visible {
-  opacity: 1;
-  pointer-events: all;
-}
-.insta-fab:hover {
-  transform: scale(1.12);
-  background: #C13584;
-}
-.insta-fab svg {
-  width: 22px;
-  height: 22px;
-  fill: none;
-  stroke: #fff;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-@media (max-width: 768px) {
-  .insta-fab { bottom: 24px; right: 20px; width: 46px; height: 46px; }
 }
 
 @media (max-width: 480px) {

@@ -282,11 +282,14 @@ async function loadPortfolio() {
 
 loadPortfolio();
 
+let filterDebounceTimer = null;
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
+    if (filterDebounceTimer) return;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     renderPortfolio(btn.dataset.filter);
+    filterDebounceTimer = setTimeout(() => { filterDebounceTimer = null; }, 400);
   });
 });
 
@@ -315,6 +318,12 @@ if (contactForm) {
       return;
     }
 
+    if (typeof emailjs === 'undefined') {
+      btnText.textContent = '전송 실패 — 다시 시도해주세요.';
+      setTimeout(() => { btnText.textContent = '전송하기'; }, 3000);
+      return;
+    }
+
     btnText.textContent = '전송 중...';
     btn.style.pointerEvents = 'none';
 
@@ -327,9 +336,7 @@ if (contactForm) {
     };
 
     try {
-      if (typeof emailjs !== 'undefined') {
-        await emailjs.send('service_vou848q', 'template_wkwtmfa', params);
-      }
+      await emailjs.send('service_vou848q', 'template_wkwtmfa', params);
       contactForm.innerHTML = `
         <div class="form-success-state">
           <div class="form-success-icon-wrap">

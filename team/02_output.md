@@ -1,6 +1,6 @@
 # 기획자 산출물 — Claude #2
 
-> 최종 업데이트: 2026-03-26 (23차 — 사이트 전체 버그 스캔)
+> 최종 업데이트: 2026-03-27 (24차 — 최종 UX/디자인 점검)
 
 ---
 
@@ -182,3 +182,94 @@ video: '영상제작'
 | 🟡 권고 | video catLabel `'동영상'` → `'영상제작'` | `js/main.js` | 1줄 |
 | 🟡 권고 | hero-scroll-hint dead CSS 삭제 | `css/style.css` | 3블록 |
 | 🟢 참고 | footer-copy 이전 보고 오진 정정 — 실제 정상 작동 | — | — |
+
+> ✅ 개발자 반영 대기 중
+
+---
+
+---
+
+# 24차 — 최종 UX/디자인 점검 결과
+
+**점검 범위:** `index.html`, `about.html`, `services.html`, `portfolio.html`, `portfolio-detail.html`, `css/style.css`
+
+---
+
+## 🟡 I. portfolio-item stagger delay — 10~12번째 카드 누락
+
+**파일:** `css/style.css`
+
+**문제:**
+- `portfolio-item:nth-child(1~9)` delay만 정의 (line 730~738)
+- 메인 페이지는 최대 12개 표시 → 10~12번째 카드 delay 없이 즉시 표시됨 → stagger 효과 불완전
+
+**수정:**
+```css
+.portfolio-item:nth-child(10) { --delay: 0.45s; }
+.portfolio-item:nth-child(11) { --delay: 0.5s;  }
+.portfolio-item:nth-child(12) { --delay: 0.55s; }
+```
+
+---
+
+## 🟡 J. portfolio.html `etc` 카테고리 필터 버튼 없음
+
+**파일:** `portfolio.html`, `js/main.js`
+
+**문제:**
+- `main.js` catLabel에 `etc: '기타'` 정의됨
+- Admin 카테고리 체크박스에 `기타(etc)` 선택 가능
+- `portfolio.html` 필터 버튼에 `etc` 없음 → 기타 카테고리 항목 개별 필터 불가
+
+**수정:**
+```html
+<!-- portfolio.html 필터 버튼에 추가 -->
+<button class="filter-btn" data-filter="etc">기타</button>
+```
+
+---
+
+## 🟢 K. style.css dead CSS 3개 블록
+
+**파일:** `css/style.css`
+
+**문제 — 삭제 대상:**
+
+| 셀렉터 | 이유 |
+|--------|------|
+| `#about { }` + `.about-quote`, `.quote-*`, `.about-grid`, `.about-body` (line 452~) | index.html에 `id="about"` 섹션 없음. about.html은 별도 클래스 사용. |
+| `.modal-img-wrap`, `.modal-info` (line 1887~1888) | 포트폴리오 모달 폐기 후 잔존 |
+| `.insta-fab` + `.insta-fab.*` (line 1892~1927) | 전체 HTML 파일 어디에도 `.insta-fab` 요소 없음 |
+
+> ⚠️ `#about` 블록은 `.about-body` / `.about-values` 등 포함 — 삭제 전 about.html 전용 CSS와 혼재 여부 재확인 필요. `.about-body`는 about.html에서 사용 중 (line 1519에 재정의됨).
+
+---
+
+## 🟢 L. style.css `.about-body` 중복 정의
+
+**파일:** `css/style.css`
+
+**문제:**
+- line 487: `.about-body { font-size: 16px; }`
+- line 1519: `.about-body { font-size: 17px; }` (재정의 → 덮어씀)
+- 두 블록 병합 후 하나로 정리 권고
+
+---
+
+## 🟢 M. portfolio.html — Contact 유도 없음
+
+**현황:** Clients 섹션 이후 바로 Footer → 포트폴리오를 본 사용자에게 문의로 이어지는 동선 없음.
+
+**권고:** Clients 섹션과 Footer 사이에 `.page-cta` 블록 추가 (services.html과 동일 패턴).
+
+---
+
+## 반영 범위 (24차)
+
+| 우선순위 | 항목 | 파일 | 범위 |
+|----------|------|------|------|
+| 🟡 권고 | portfolio-item stagger delay 10~12 추가 | `css/style.css` | 3줄 |
+| 🟡 권고 | `etc` 카테고리 필터 버튼 추가 | `portfolio.html` | 1줄 |
+| 🟢 권고 | dead CSS 3블록 삭제 (`#about` 영역 주의) | `css/style.css` | 다수 |
+| 🟢 권고 | `.about-body` 중복 정리 | `css/style.css` | 1블록 |
+| 🟢 권고 | portfolio.html page-cta 추가 | `portfolio.html` | 5줄 |
