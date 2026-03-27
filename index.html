@@ -79,7 +79,7 @@
 
   <!-- ===== INTRO ===== -->
   <div class="main-intro">
-    <h2 class="main-intro-quote reveal">"브랜드의 가치를<br>이끌어가는<br>사람들"</h2>
+    <h2 class="main-intro-quote reveal">"브랜드의 가치를<br>이끌어가는 사람들"</h2>
     <div class="main-intro-right">
       <p class="reveal" style="--delay:0.1s">
         기획, 디자인, 개발, 마케팅 — 각 분야의 전문가들이<br>
@@ -96,6 +96,12 @@
     <div class="portfolio-main-footer reveal">
       <a href="portfolio.html" class="text-link">VIEW OTHER WORKS →</a>
     </div>
+  </section>
+
+  <!-- ===== CLIENTS ===== -->
+  <section class="clients-section">
+    <span class="clients-label">TRUSTED BY</span>
+    <div class="clients-grid" id="clientsGrid"></div>
   </section>
 
   <!-- ===== CONTACT ===== -->
@@ -157,16 +163,57 @@
         <p>인천광역시 연수구 송도과학로56, 송도테크노파크BT센터 1401호</p>
         <p>(주)브이디렉터스 · 대표 손휘민 · 사업자등록번호 713-81-02573</p>
         <p>contact@vdirectors.com · <a href="tel:01089370257" class="footer-tel">Tel. 010-8937-0257</a></p>
+        <div class="footer-sns">
+          <a href="https://blog.naver.com/vdirectors" target="_blank" rel="noopener" class="footer-sns-btn" aria-label="네이버 블로그">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/></svg>
+          </a>
+          <a href="http://pf.kakao.com/_xkJBxlb" target="_blank" rel="noopener" class="footer-sns-btn" aria-label="카카오톡 채널">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.667 1.556 5.012 3.906 6.395L5 21l4.328-2.287C10.166 18.894 11.07 19 12 19c5.523 0 10-3.477 10-8.5S17.523 3 12 3z"/></svg>
+          </a>
+        </div>
         <p class="footer-copy"></p>
       </div>
     </div>
   </footer>
 
 
+  <!-- SNS FAB -->
+  <div class="sns-fab">
+    <a href="https://blog.naver.com/vdirectors" target="_blank" rel="noopener" class="sns-fab-btn" aria-label="네이버 블로그">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/></svg>
+    </a>
+    <a href="http://pf.kakao.com/_xkJBxlb" target="_blank" rel="noopener" class="sns-fab-btn" aria-label="카카오톡 채널">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.667 1.556 5.012 3.906 6.395L5 21l4.328-2.287C10.166 18.894 11.07 19 12 19c5.523 0 10-3.477 10-8.5S17.523 3 12 3z"/></svg>
+    </a>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="js/supabase-client.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/transitions.js"></script>
+  <script>
+    // Clients 동적 렌더링
+    (async function loadClients() {
+      const grid = document.getElementById('clientsGrid');
+      if (!grid) return;
+      const { data } = await window.supabase.from('clients').select('*').order('sort_order');
+      let html = '';
+      if (data && data.length) {
+        html = data.map(item =>
+          `<div class="client-logo reveal"><img src="${item.logo_url}" alt="Client" loading="lazy"></div>`
+        ).join('');
+      } else {
+        html = Array.from({ length: 25 }, (_, i) =>
+          `<div class="client-logo reveal"><img src="assets/clients/cl_${String(i + 1).padStart(2, '0')}.png" alt="Client" loading="lazy"></div>`
+        ).join('');
+      }
+      grid.innerHTML = html;
+      const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); revealObs.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      grid.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    })();
+  </script>
 </body>
 </html>
