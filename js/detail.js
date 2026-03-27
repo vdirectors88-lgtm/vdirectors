@@ -2,6 +2,17 @@
    VDIRECTORS — detail.js
    ============================================ */
 
+/* ===== SCROLL PROGRESS BAR ===== */
+(function() {
+  const bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', () => {
+    const scrolled  = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = docHeight > 0 ? (scrolled / docHeight * 100) + '%' : '0%';
+  }, { passive: true });
+})();
+
 /* ===== NAV ===== */
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
@@ -22,6 +33,12 @@ mobileMenu.querySelectorAll('a').forEach(link => {
     mobileBtn.classList.remove('active');
     document.body.style.overflow = '';
   });
+});
+
+window.addEventListener('orientationchange', () => {
+  mobileMenu.classList.remove('active');
+  mobileBtn.classList.remove('active');
+  document.body.style.overflow = '';
 });
 
 /* ===== FOOTER YEAR ===== */
@@ -182,4 +199,23 @@ function initLightbox(images) {
     if (e.key === 'ArrowLeft'  && cur > 0)                 show(cur - 1);
     if (e.key === 'ArrowRight' && cur < images.length - 1) show(cur + 1);
   });
+
+  // 터치 스와이프 — 좌/우 이미지 전환, 위/아래 닫기
+  let touchStartX = 0;
+  let touchStartY = 0;
+  overlay.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  overlay.addEventListener('touchend', e => {
+    if (!overlay.classList.contains('active')) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+      if (dx < 0 && cur < images.length - 1) show(cur + 1);
+      else if (dx > 0 && cur > 0)            show(cur - 1);
+    } else if (Math.abs(dy) > Math.abs(dx) && dy > 60) {
+      close();
+    }
+  }, { passive: true });
 }

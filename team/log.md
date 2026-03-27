@@ -359,11 +359,28 @@
   · 점검 결과: 🔴 1건(detail.js catLabel video 불일치) / 🟡 2건(about·services Supabase CDN 없음·EmailJS 조건)
   · 즉시 수정: detail.js catLabel video '동영상' → '영상제작' (main.js 43차 반영 누락 보완)
   · 잔존 이슈: about/services Supabase CDN 미포함(현재 무해) / EmailJS 미로드 시 성공 표시(기존 알려진 이슈)
+2026-03-27 | 개발자 | 45차 — 기획자 버그 점검 + dead CSS 제거 + 26차 반영 — ✅ 완료
+  · 버그 수정: admin.js Clients Sortable 중복 생성 → clientsSortableInstance 추적·destroy 처리
+  · 버그 수정: admin.js handleDetailFiles() uploadedDetailUrls=[] 리셋 제거 (배치 누적 소실 방지)
+  · 버그 수정: index.html/portfolio.html clients 정적 폴백 cl_05.png 404 → 명시적 배열 [1,2,3,4,6,7...25]
+  · 버그 수정: detail.js #scrollProgress 핸들러 누락 → IIFE scroll handler 추가
+  · dead CSS 제거: style.css 구 #about 블록 / .modal-img-wrap/.modal-info / .insta-fab / .service-num / 반응형 dead 참조 6개
+  · dead JS 제거: main.js renderCard() overlay-tags 생성 코드 (CSS에서 display:none이던 요소)
+  · 26차 A: index.html .contact-desc 내 <br> 제거 (모바일 3줄 쪼개짐 방지)
+  · 26차 B: detail.css .detail-name word-break:break-word + overflow-wrap:anywhere 추가
+2026-03-27 | 기획자 | 직원 피드백 PDF 스펙 작성 (25차) — ✅ 완료 (02_output.md)
+  · A: index.html main-intro-quote 3줄 → 2줄 ("브랜드의 가치를 / 이끌어가는 사람들") + style.css .main-intro-right p font-size 15→17px
+  · B: style.css history-events gap 14→20px / ::before top/bottom 6→10px / .history-event 중복 padding-left 삭제
+  · C: style.css service-row-right gap 24→20px + padding shorthand 정리 / service-detail-list gap 10→12px / service-row-right > p line-height 1.85→1.9
 2026-03-27 | 기획자 | 최종 UX/디자인 점검 (24차) — ✅ 완료 (02_output.md)
   · 🟡 portfolio-item stagger delay 10~12번째 미정의 → 12개 표시 시 stagger 불완전
   · 🟡 portfolio.html `etc` 카테고리 필터 버튼 없음 (catLabel에는 존재)
   · 🟢 style.css dead CSS 3블록 — `#about`, `.modal-img-wrap/.modal-info`, `.insta-fab`
   · 🟢 `.about-body` 중복 정의 (16px / 17px) — 정리 권고
+2026-03-27 | 어시스턴트 | JS 동작·모바일 인터랙션 통합 점검 (18차) — ✅ 완료 (04_output.md)
+  · 🔴 수정: detail.js orientationchange 핸들러 누락 → 추가 (화면 회전 시 메뉴+scroll lock 미해제 버그)
+  · 🟡 수정: detail.js 라이트박스 터치 스와이프 미지원 → touchstart/touchend 추가 (좌우 이미지 전환 + 아래로 닫기)
+  · CSS 개발자 전달: #hero min-height 100svh 대응 / bidiObserver rootMargin -60px → -20px 완화 권고
   · 🟢 portfolio.html Contact 유도 CTA 없음
 2026-03-26 | 기획자 | 사이트 전체 버그 스캔 (23차) — ✅ 완료 (02_output.md)
   · 🔴 admin.css `.btn-delete` → `.client-delete-btn` CSS 클래스 불일치 (삭제 버튼 hover 스타일 미적용)
@@ -457,4 +474,39 @@
   · ⚠️ 이상 항목 6건 목록화 → Boss 확인 필요 (직접 수정 금지)
   · clients 24개 (25개 예상 대비 1개 부족) / logo_url 공백 없음 ✅
 
+2026-03-27 | 어시스턴트 | 17차 — Admin Storage RLS 수정 SQL + Boss 실행 가이드 작성 — ✅ 완료
+  · 증상: portfolio 버킷 썸네일 업로드 시 RLS 정책 위반 에러
+  · 원인: storage.objects INSERT/UPDATE/DELETE 정책 미설정
+  · SQL 3개 + Boss 실행 가이드 → 05_output.md 작성 완료
+  · 팀장 보고 완료
+
 2026-03-26 | 개발자 | 45차 A~J 전 항목 처리 완료 — EmailJS 버그 수정 / detail 스크롤 수정 / Admin Sortable 중복·_isDragging 버그 수정 / 필터 debounce / stagger 10~12 / etc 필터 / dead CSS 삭제 / about-body 중복 삭제 / portfolio CTA 추가 — ✅ 완료
+2026-03-27 | 개발자 | 46차 완료 — index.html Clients 섹션 추가 / SNS FAB(네이버블로그+카카오) 전 HTML 적용 / index.html 푸터 SNS 링크 추가 / style.css FAB CSS 추가 — ✅ 완료
+2026-03-27 | 개발자 | 47차 완료 — main-intro 인용구 2줄화 / main-intro-right p 17px / history-events gap+top/bottom / history-event padding-left dead CSS 삭제 / service-row-right padding+gap / service-detail-list gap 12px / service-row-right p line-height 1.9 — ✅ 완료
+
+2026-03-27 | 어시스턴트 | 18차 — SEO 최적화 전체 적용 + JS 모바일 인터랙션 점검 — ✅ 완료
+  · SEO: 4개 페이지 keywords/canonical/preconnect/OG:url 수정 + index.html JSON-LD 조직 구조화 데이터 추가
+  · SEO: 포트폴리오 이미지 alt "${item.name} 포트폴리오 — 브이디렉터스" / 클라이언트 로고 alt "${item.name} 로고 — 브이디렉터스" 개선
+  · sitemap.xml / robots.txt 기존 존재 확인 (이상 없음)
+  · JS 모바일 점검 완료: reveal threshold 0.08 / bidiObserver 0.12 / 모바일 메뉴 scroll lock / backdrop-filter -webkit- prefix / min-height:100vh — 전부 정상
+  · 🔴 수정: style.css .card-field input,textarea font-size 14px → 16px (iOS 자동 줌인 방지)
+  · 🟡 수정: main.js orientationchange 핸들러 추가 (화면 전환 시 모바일 메뉴 자동 닫힘)
+  · Google Search Console / 네이버 서치어드바이저 등록은 배포 후 Boss 직접 진행 필요
+2026-03-27 | 기획자 | 전체 페이지 텍스트·UX 통합 점검 (26차) — ✅ 완료 (02_output.md)
+  · 🔴 index.html contact-desc `<br>` 강제 줄바꿈 제거 → 모바일 자연줄바꿈으로 교체
+  · 🟡 services.html 마케팅 h2 1줄 vs 다른 서비스 2줄 높이 불균형
+  · 🟡 about.html history-desc 긴 문장 word-break 모바일 확인 필요
+  · 🟡 portfolio-detail.html #detailName overflow-wrap 장문 프로젝트명 대비 필요
+  · 🟢 index.html .text-link 터치 영역 padding 44px 기준 확인
+  · 유지 br 태그 7개 확인 (헤딩·인용구 2줄 의도적 사용 — 정상)
+2026-03-27 | 디자이너 | 전체 페이지 모바일 비주얼 통합 점검 (26차) — ✅ 완료 (02_output.md)
+  · 점검 대상: index/about/services/portfolio/portfolio-detail + css/style.css + css/detail.css
+  · 🟡 main-intro-quote 768px 이하 폰트 오버라이드 없음 → clamp(36px,9vw,48px) 추가 권고
+  · 🟡 value-card hover/reveal transition 충돌 → hover에 transition 0.25s 별도 명시 권고
+  · 🟡 process-section .section-label color:#666 대비 2.7:1(AA 미달) → #999 조정 권고
+  · 🟡 form-success-links a / form-reset-btn 터치 영역 44px 미달 → padding:10px 0 추가 권고
+  · 🟡 @media (pointer:coarse) hover 잔류 — history-event/service-row/value-card 취소 코드 추가 권고
+  · 🟢 filter-btn :focus-visible 없음 → outline:2px solid var(--black) 추가 권고
+  · br 태그 유지 6개 확인 (모두 헤딩·인용구 의도적 2줄)
+  · 비주얼 이상 없음 확인: hero/section-title 반응형 오버라이드 ✅ / 포트폴리오 2열 aspect-ratio ✅ / clients 2열 ✅ / footer 1컬럼 ✅ / safe-area 전반 적용 ✅ / pointer:coarse 커서 비활성화 ✅
+  (재점검: CSS 코드 직접 확인 — 위 🟡 5개 항목 현재 style.css에 미반영 확인)
