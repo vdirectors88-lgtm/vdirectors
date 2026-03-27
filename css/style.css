@@ -1309,7 +1309,9 @@ body.page { background: var(--white); }
   line-height: 2;
   color: var(--g1);
   word-break: keep-all;
+  overflow-wrap: break-word;
 }
+.about-body + .about-body { margin-top: 20px; }
 .about-intro-right {
   display: flex;
   flex-direction: column;
