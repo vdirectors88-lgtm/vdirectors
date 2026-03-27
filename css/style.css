@@ -981,10 +981,10 @@ section { padding: 130px 60px; }
 }
 
 .contact-phone {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: 24px;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -996,8 +996,8 @@ section { padding: 130px 60px; }
 .contact-sns {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 16px;
+  gap: 10px;
+  margin-top: 10px;
 }
 .contact-sns-btn {
   display: inline-flex;
@@ -1017,8 +1017,8 @@ section { padding: 130px 60px; }
   line-height: 1.9;
   color: var(--g2);
   word-break: keep-all;
+  margin: 0;
 }
-
 
 /* Business Card Form */
 .contact-form {
@@ -1920,24 +1920,3 @@ body.page { background: var(--white); }
   .form-success-state { padding: 32px 0; }
   .form-success-links { flex-direction: column; gap: 12px; }
 }
-
-
-/* ===== FOOTER SNS ===== */
-.footer-sns {
-  display: flex;
-  gap: 14px;
-  margin-top: 12px;
-}
-.footer-sns-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid var(--g4);
-  color: var(--g2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transition: border-color 0.2s, color 0.2s;
-}
-.footer-sns-btn:hover { border-color: var(--black); color: var(--black); }
