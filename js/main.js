@@ -70,6 +70,12 @@ mobileMenu.querySelectorAll('a').forEach(link => {
   });
 });
 
+window.addEventListener('orientationchange', () => {
+  mobileMenu.classList.remove('active');
+  mobileBtn.classList.remove('active');
+  document.body.style.overflow = '';
+});
+
 
 /* ===== MAGNETIC BUTTON ===== */
 (function initMagnetic() {
@@ -122,7 +128,7 @@ const bidiObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     entry.target.classList.toggle('in-view', entry.isIntersecting);
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+}, { threshold: 0.12, rootMargin: '0px 0px -20px 0px' });
 
 document.querySelectorAll('.reveal-bidi').forEach(el => bidiObserver.observe(el));
 
