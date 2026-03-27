@@ -995,16 +995,19 @@ section { padding: 130px 60px; }
 
 .contact-sns {
   display: flex;
-  gap: 12px;
-  margin-top: 14px;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }
 .contact-sns-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  color: var(--g3);
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--g2);
+  text-decoration: none;
   transition: color 0.2s;
 }
 .contact-sns-btn:hover { color: var(--black); }
