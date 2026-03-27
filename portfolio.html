@@ -7,11 +7,14 @@
   <meta property="og:title" content="VDIRECTORS — We Direct Your Value">
   <meta property="og:description" content="소프트웨어 개발, 홈페이지 제작, UI/UX 디자인, 시각디자인, 마케팅">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://vdirectors.com">
+  <meta property="og:url" content="https://vdirectors.com/portfolio.html">
   <meta property="og:image" content="https://vdirectors.com/assets/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <meta name="description" content="브이디렉터스 포트폴리오 | 웹 개발, 브랜드 디자인 작업물">
+  <meta name="keywords" content="브이디렉터스 포트폴리오, 패키지 디자인 포트폴리오, 상세페이지 디자인 포트폴리오, 홈페이지 제작 포트폴리오, 로고 디자인 포트폴리오, 인천 디자인 포트폴리오, 마케팅 포트폴리오, 영상 제작 포트폴리오, 브랜딩 포트폴리오, 인천 디자인 회사 포트폴리오, 송도 디자인 회사 포트폴리오">
+  <link rel="canonical" href="https://vdirectors.com/portfolio.html">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -109,12 +112,12 @@
       let html = '';
       if (data && data.length) {
         html = data.map(item =>
-          `<div class="client-logo reveal"><img src="${item.logo_url}" alt="Client" loading="lazy"></div>`
+          `<div class="client-logo reveal"><img src="${item.logo_url}" alt="${item.name} 로고 — 브이디렉터스" loading="lazy"></div>`
         ).join('');
       } else {
         // 정적 폴백 — Admin에서 로고 업로드 전까지 사용
-        html = Array.from({ length: 25 }, (_, i) =>
-          `<div class="client-logo reveal"><img src="assets/clients/cl_${String(i + 1).padStart(2, '0')}.png" alt="Client" loading="lazy"></div>`
+        html = [1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25].map(n =>
+          `<div class="client-logo reveal"><img src="assets/clients/cl_${String(n).padStart(2, '0')}.png" alt="브이디렉터스 클라이언트 로고" loading="lazy"></div>`
         ).join('');
       }
 

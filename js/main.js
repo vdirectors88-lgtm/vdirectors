@@ -181,7 +181,6 @@ function shuffleArray(arr) {
 let allPortfolioData = [];
 
 function renderCard(item, idx) {
-  const tags   = (Array.isArray(item.tags) ? item.tags : []).map(t => `<span class="overlay-tag">${t}</span>`).join('');
   const cat    = typeof item.category === 'string' && item.category
     ? item.category.split(',').map(s => catLabel[s.trim()] || s.trim().toUpperCase()).join(' · ')
     : '';
@@ -189,12 +188,11 @@ function renderCard(item, idx) {
   const idxStr = String(idx + 1).padStart(2, '0');
 
   const thumbHtml = thumb
-    ? `<div class="portfolio-thumb"><img src="${thumb}" alt="${item.name}" loading="lazy"></div>
+    ? `<div class="portfolio-thumb"><img src="${thumb}" alt="${item.name} 포트폴리오 — 브이디렉터스" loading="lazy"></div>
        <div class="portfolio-overlay">
          <div class="overlay-inner">
            <span class="overlay-cat">${cat}</span>
            <h3 class="overlay-name">${item.name}</h3>
-           <p class="overlay-tags">${tags}</p>
          </div>
        </div>`
     : `<div class="portfolio-no-thumb">
@@ -205,7 +203,6 @@ function renderCard(item, idx) {
          <div class="overlay-inner">
            <span class="overlay-cat">${cat}</span>
            <h3 class="overlay-name">${item.name}</h3>
-           <p class="overlay-tags">${tags}</p>
          </div>
        </div>`;
 

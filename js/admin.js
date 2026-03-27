@@ -54,6 +54,7 @@ let existingThumbUrl  = null;
 let uploadedDetailUrls = [];
 let existingDetailUrls = [];
 let sortableInstance   = null;
+let clientsSortableInstance = null;
 
 /* ===== SAVE INDICATOR ===== */
 const saveIndicator = document.createElement('div');
@@ -429,8 +430,6 @@ async function handleDetailFiles(e) {
   saveBtn.disabled = true;
   saveBtn.textContent = '업로드 중...';
 
-  uploadedDetailUrls = [];
-
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
     const ext  = file.name.split('.').pop();
@@ -677,7 +676,11 @@ async function loadClients() {
     btn.addEventListener('click', () => deleteClient(btn.dataset.id, btn.dataset.url));
   });
 
-  Sortable.create(grid, {
+  if (clientsSortableInstance) {
+    clientsSortableInstance.destroy();
+    clientsSortableInstance = null;
+  }
+  clientsSortableInstance = Sortable.create(grid, {
     animation: 150,
     ghostClass: 'sortable-ghost',
     onEnd: async () => {
