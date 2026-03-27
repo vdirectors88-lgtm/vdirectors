@@ -52,6 +52,7 @@ select {
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 @keyframes pageEnter {
@@ -63,7 +64,6 @@ body {
   font-family: var(--font);
   background: var(--white);
   color: var(--black);
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   animation: pageEnter 0.55s var(--ease) both;
 }
