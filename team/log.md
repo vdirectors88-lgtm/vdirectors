@@ -510,3 +510,15 @@
   · br 태그 유지 6개 확인 (모두 헤딩·인용구 의도적 2줄)
   · 비주얼 이상 없음 확인: hero/section-title 반응형 오버라이드 ✅ / 포트폴리오 2열 aspect-ratio ✅ / clients 2열 ✅ / footer 1컬럼 ✅ / safe-area 전반 적용 ✅ / pointer:coarse 커서 비활성화 ✅
   (재점검: CSS 코드 직접 확인 — 위 🟡 5개 항목 현재 style.css에 미반영 확인)
+2026-03-27 | 개발자 | CSS/레이아웃 모바일 통합 점검 (48차) — ✅ 완료 (03_output.md)
+  · 🔴 .nav-mobile-btn min-height/min-width 44px + justify/align-items center 추가
+  · 🔴 .hero-cta min-height 44px 추가
+  · 🔴 .text-link display:inline-flex + min-height 44px (터치 타겟)
+  · 🔴 .filter-btn min-height 44px — @768px / @390px / @360px 전체 적용
+  · 🔴 .form-success-links a min-height 44px + padding:10px 0 2px (터치 타겟)
+  · 🔴 .form-footer flex-wrap:wrap + gap:12px — 360px 이하 notice+버튼 줄바꿈 대응
+  · 🟡 .main-intro-quote @768px font-size clamp(36px,9vw,48px) 추가
+  · 🟡 .value-card.reveal.in-view transition에 background 0.3s/box-shadow 0.35s 추가
+  · 🟡 .process-section .section-label color #666 → #999 (대비 개선)
+  · 🟡 .filter-btn :focus-visible outline 2px solid var(--black) 추가
+  · 🟡 @media (pointer:coarse) history-event/service-row/value-card hover 취소 추가

@@ -169,6 +169,10 @@ a { text-decoration: none; color: inherit; }
   background: none;
   border: none;
   padding: 10px;
+  min-height: 44px;
+  min-width: 44px;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-mobile-btn span {
@@ -354,6 +358,7 @@ a { text-decoration: none; color: inherit; }
   border-bottom: 1.5px solid var(--black);
   padding-bottom: 5px;
   transition: gap 0.4s var(--ease), transform 0.4s var(--ease);
+  min-height: 44px;
 }
 .hero-cta:hover { gap: 28px; }
 
@@ -493,6 +498,10 @@ section { padding: 130px 60px; }
   border-bottom-color: var(--black);
   background: var(--g5);
   border-radius: 2px;
+}
+.filter-btn:focus-visible {
+  outline: 2px solid var(--black);
+  outline-offset: 2px;
 }
 
 /* Bento Grid */
@@ -714,7 +723,7 @@ section { padding: 130px 60px; }
 .client-logo:hover img { filter: grayscale(0%) opacity(1); }
 @media (max-width: 768px) {
   .portfolio-filter { flex-wrap: wrap; gap: 4px 0; }
-  .filter-btn { padding: 12px 16px; }
+  .filter-btn { padding: 12px 16px; min-height: 44px; }
   .main-intro-right p { margin-bottom: 24px; }
   .clients-section { padding: 60px 40px; }
   .clients-grid { grid-template-columns: repeat(4, 1fr); }
@@ -869,7 +878,7 @@ section { padding: 130px 60px; }
 .card-field input,
 .card-field textarea {
   font-family: var(--font);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   color: var(--black);
   border: none;
@@ -901,6 +910,8 @@ section { padding: 130px 60px; }
   justify-content: space-between;
   align-items: center;
   margin-top: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .form-notice {
@@ -1032,8 +1043,11 @@ section { padding: 130px 60px; }
   letter-spacing: 0.15em;
   color: var(--black);
   border-bottom: 1px solid var(--black);
-  padding-bottom: 2px;
+  padding: 10px 0 2px;
   transition: opacity 0.2s;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: flex-end;
 }
 .form-success-links a:hover { opacity: 0.4; }
 
@@ -1118,7 +1132,8 @@ footer {
   word-break: keep-all;
 }
 .text-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -1126,6 +1141,7 @@ footer {
   border-bottom: 1px solid var(--black);
   padding-bottom: 3px;
   transition: opacity 0.25s;
+  min-height: 44px;
 }
 .text-link:hover { opacity: 0.45; }
 
@@ -1379,7 +1395,7 @@ body.page { background: var(--white); }
 .value-card.reveal.in-view {
   opacity: 1;
   transform: scale(1) translateY(0);
-  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), background 0.3s ease, box-shadow 0.35s ease;
   transition-delay: var(--delay, 0s);
 }
 .value-card-num {
@@ -1538,7 +1554,7 @@ body.page { background: var(--white); }
   padding: 100px 60px;
   background: var(--black);
 }
-.process-section .section-label { color: #666; }
+.process-section .section-label { color: #999; }
 .process-section .section-title { color: var(--white); }
 .process-header { margin-bottom: 60px; }
 
@@ -1623,6 +1639,7 @@ body.page { background: var(--white); }
 
   /* Main intro */
   .main-intro { grid-template-columns: 1fr; gap: 40px; padding: 60px 28px; }
+  .main-intro-quote { font-size: clamp(36px, 9vw, 48px); }
 
   /* About page */
   .about-intro-grid { grid-template-columns: 1fr; gap: 52px; }
@@ -1712,7 +1729,7 @@ body.page { background: var(--white); }
   .page-cta { padding: 48px 18px; }
   .services-page-section { padding: 0 18px; }
   .portfolio-page-section { padding: 36px 18px 72px; }
-  .filter-btn { padding: 12px 12px; font-size: 11px; }
+  .filter-btn { padding: 12px 12px; font-size: 11px; min-height: 44px; }
 }
 
 /* ===== 360px — Galaxy S25 / 소형 Android ===== */
@@ -1735,7 +1752,7 @@ body.page { background: var(--white); }
   .page-cta { padding: 44px 16px; }
   .services-page-section { padding: 0 16px; }
   .portfolio-page-section { padding: 32px 16px 64px; }
-  .filter-btn { padding: 12px 10px; font-size: 11px; }
+  .filter-btn { padding: 12px 10px; font-size: 11px; min-height: 44px; }
 }
 
 /* ===== 터치 디바이스 — 커스텀 커서 비활성화 ===== */
@@ -1745,5 +1762,31 @@ body.page { background: var(--white); }
   .client-logo, .hero-cta, .text-link, .submit-btn, .nav-logo,
   .nav-links a, label, select, .marquee-wrap {
     cursor: auto !important;
+  }
+
+  /* hover 효과 취소 — 터치 디바이스에서 잔류 hover 방지 */
+  .history-event:hover {
+    background: transparent;
+  }
+  .history-event:hover::before {
+    transform: scale(1);
+    background: var(--g4);
+  }
+  .history-event:hover .history-month {
+    color: var(--g3);
+  }
+  .service-row:hover {
+    background: transparent;
+  }
+  .service-row:hover .service-row-right h2::after {
+    width: 0;
+  }
+  .value-card:hover {
+    background: var(--white);
+    transform: none;
+    box-shadow: none;
+  }
+  .value-card.reveal.in-view:hover {
+    transform: scale(1) translateY(0);
   }
 }

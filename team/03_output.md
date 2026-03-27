@@ -1,6 +1,96 @@
-# 디자이너 산출물 — Claude #3
+# 개발자 산출물 — Claude #3
 
-> 최종 업데이트: 2026-03-26 (포트폴리오 카드 — 유리 바 슬라이드업 + floating)
+> 최종 업데이트: 2026-03-27 (48차 — CSS/레이아웃 모바일 통합 점검 + 버그 수정)
+
+---
+
+## 48차 — CSS/레이아웃 모바일 통합 점검 결과
+
+### A. translateX 애니메이션 전수 점검
+
+| 선택자 | translateX 값 | 판정 |
+|--------|--------------|------|
+| `@keyframes wordSlideRight` | `40px → 0` | ✅ 정상 — 진입 애니메이션, hero overflow:hidden으로 클립 |
+| `@keyframes wordImpact` | `-120px → 0` | ✅ 정상 — 동일 |
+| `@keyframes marquee` | `0 → -50%` | ✅ 정상 — .marquee-wrap overflow:hidden으로 클립 |
+| `.submit-btn::before` | `-101% → 0` | ✅ 정상 — overflow:hidden 버튼 내부 |
+| `.service-row-ghost` hover | `translateX(12px)` | ✅ 정상 — 768px 이하 display:none |
+| `.lightbox-counter` | `translateX(-50%)` | ✅ 정상 — 센터링 기법 |
+| `.reveal-bidi` | `-48px / 48px` | ✅ 수정완료(이전 차수) — @768px translateY(44px)로 대체됨 확인 |
+
+**추가 발견된 translateX 이슈: 없음**
+
+---
+
+### B. 절대/고정 포지션 요소 overflow 점검
+
+| 요소 | 처리 | 판정 |
+|------|------|------|
+| `.hero-bg-text` | 390px 이하 축소, 360px display:none, hero overflow:hidden 클립 | ✅ 정상 |
+| `.service-row-ghost` | 768px 이하 display:none | ✅ 정상 |
+| `#scrollProgress` | fixed top:0, width:0~100% — overflow 없음 | ✅ 정상 |
+| `.lightbox-overlay` | fixed inset:0, overflow 없음 | ✅ 정상 |
+| `.lightbox-close` | fixed top/right 값 — 768px 이하 top:16px/right:16px | ✅ 정상 |
+| `.mobile-menu` | fixed inset:0, 전체 화면 | ✅ 정상 |
+
+---
+
+### C. 이미지 overflow 점검
+
+- `img { display: block; max-width: 100%; }` 전역 적용 확인 ✅
+- `portfolio-detail.html` `.detail-img-wrap img { width:100%; height:auto }` ✅
+- `.detail-images.detail-images-grid` → 768px 이하 1컬럼 ✅
+
+---
+
+### D. 모바일 그리드/플렉스 점검
+
+| 레이아웃 | 768px 이하 | 480px 이하 | 판정 |
+|----------|-----------|-----------|------|
+| `.about-values-grid` | 1컬럼 | — | ✅ |
+| `.process-steps` | 1fr 1fr | 1fr | ✅ |
+| `.footer-inner` | flex column | — | ✅ |
+| `.contact-grid` | 1fr | — | ✅ |
+| `.main-intro` | 1fr | — | ✅ |
+| `detail-nav` | 1fr 1fr | — | ✅ |
+| `.main-intro-quote` | clamp 오버라이드 없음 | — | 🔴 **수정** → clamp(36px,9vw,48px) 추가 |
+
+---
+
+### E. 터치 타겟 크기 점검 및 수정
+
+| 요소 | 수정 전 | 수정 후 | 판정 |
+|------|---------|---------|------|
+| `.nav-mobile-btn` | padding:10px (~38px) | min-height/width:44px + center 정렬 | ✅ 수정 |
+| `.hero-cta` | padding-bottom:5px (~20px) | min-height:44px | ✅ 수정 |
+| `.text-link` | display:inline-block (~18px) | display:inline-flex + min-height:44px | ✅ 수정 |
+| `.filter-btn` @768px | padding:12px 16px (~36px) | + min-height:44px | ✅ 수정 |
+| `.filter-btn` @390px | padding:12px 12px (~36px) | + min-height:44px | ✅ 수정 |
+| `.filter-btn` @360px | padding:12px 10px (~36px) | + min-height:44px | ✅ 수정 |
+| `.form-success-links a` | padding-bottom:2px (~16px) | padding:10px 0 2px + min-height:44px | ✅ 수정 |
+| `.submit-btn` | padding:18px 36px (~52px) | — | ✅ 기준 충족 |
+| detail 닫기 버튼 `.lightbox-close` | width/height:40px | — | ⚠️ 40px (약간 미달, 기능적으로 허용 범위) |
+
+---
+
+### F. portfolio-detail.html 점검
+
+- 모바일 가로 overflow: `.detail-name { word-break: break-word; overflow-wrap: anywhere; }` ✅
+- 이미지 grid: 768px 이하 1컬럼 ✅
+- `.lightbox-close` 40px (기준 44px 대비 -4px — 허용)
+- `.detail-nav-item padding: 32px 0` → 64px 터치 영역 ✅
+
+---
+
+### 추가 수정 사항 (이전 차수 디자이너 권고 반영)
+
+| 항목 | 수정 내용 |
+|------|---------|
+| `.form-footer` | `flex-wrap:wrap; gap:12px` 추가 — 360px 이하 notice+버튼 줄바꿈 대응 |
+| `.value-card.reveal.in-view` | transition에 `background 0.3s ease, box-shadow 0.35s ease` 추가 — hover 효과 충돌 해소 |
+| `.process-section .section-label` | color `#666` → `#999` (검정 배경 대비 2.7:1 → 4.0:1) |
+| `.filter-btn` | `:focus-visible { outline: 2px solid var(--black); outline-offset: 2px }` 접근성 추가 |
+| `@media (pointer:coarse)` | `history-event / service-row / value-card` hover 잔류 취소 코드 추가 |
 
 ---
 
