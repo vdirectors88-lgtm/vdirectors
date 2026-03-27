@@ -993,6 +993,22 @@ section { padding: 130px 60px; }
 }
 .contact-phone:hover { color: var(--black); }
 
+.contact-sns {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+}
+.contact-sns-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--g3);
+  transition: color 0.2s;
+}
+.contact-sns-btn:hover { color: var(--black); }
+
 .contact-desc {
   font-size: 15px;
   line-height: 1.9;
