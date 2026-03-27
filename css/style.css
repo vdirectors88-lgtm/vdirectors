@@ -1598,6 +1598,9 @@ body.page { background: var(--white); }
 }
 
 @media (max-width: 768px) {
+  .reveal-bidi,
+  .reveal-bidi:nth-child(even) { transform: translateY(44px); }
+
   section { padding: 80px 28px; }
   #nav { padding: 24px 28px; }
   #nav.scrolled { padding: 16px 28px; }
