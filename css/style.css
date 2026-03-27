@@ -996,16 +996,16 @@ section { padding: 130px 60px; }
 .contact-sns {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 12px;
+  margin-top: 16px;
 }
 .contact-sns-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   color: var(--g2);
   text-decoration: none;
   transition: color 0.2s;
