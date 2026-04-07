@@ -352,11 +352,8 @@ if (contactForm) {
           <p class="form-success-desc">영업일 1일 내에 담당자가 직접 연락드리겠습니다.<br>소중한 프로젝트 문의 감사드립니다.</p>
           <div class="form-success-links">
             <a href="portfolio.html">포트폴리오 보러가기 →</a>
-            <button type="button" class="form-reset-btn" id="formResetBtn">다시 문의하기</button>
           </div>
         </div>`;
-      document.getElementById('formResetBtn')
-        ?.addEventListener('click', () => location.reload());
     } catch (err) {
       console.error(err);
       btnText.textContent = '전송 실패 — 다시 시도해주세요.';
