@@ -277,7 +277,16 @@ async function loadPortfolio() {
     const countEl = document.getElementById('portfolioCount');
     if (countEl) countEl.textContent = data.length;
 
-    renderPortfolio('all');
+    // URL ?filter= 로 진입 시 해당 카테고리 활성화 (예: pricing 페이지의 "작업 보기")
+    const urlFilter = new URLSearchParams(window.location.search).get('filter');
+    const filterBtn = urlFilter && document.querySelector(`.filter-btn[data-filter="${urlFilter}"]`);
+    if (filterBtn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      filterBtn.classList.add('active');
+      renderPortfolio(urlFilter);
+    } else {
+      renderPortfolio('all');
+    }
   } catch (err) {
     console.error('포트폴리오 로드 실패:', err);
   }
