@@ -29,7 +29,10 @@
   body{background:var(--paper);color:var(--ink);font-family:'Pretendard',sans-serif;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
   /* 등장 효과: 부드럽고 빠른 미세 페이드업 (위치 흔들림 최소화) */
-  .reveal{opacity:0}
+  /* 사이트 공통 style.css의 .reveal{transform:translateY(44px)} 무력화 — 이 페이지는 opacity-only 페이드.
+     JS가 .in(.in-view 아님)을 붙여 공통 CSS의 transform 리셋이 안 걸려 카드가 44px 밀려
+     하단 안내문을 덮던 문제 방지 */
+  .reveal{opacity:0;transform:none}
   .reveal.in{opacity:1;animation:revealUp .5s ease backwards}
   @keyframes revealUp{from{opacity:0}to{opacity:1}}
   @keyframes cardIn{from{opacity:0}to{opacity:1}}
