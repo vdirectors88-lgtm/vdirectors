@@ -7,13 +7,13 @@
 <meta property="og:title" content="VDIRECTORS — We Direct Your Value">
 <meta property="og:description" content="브이디렉터스 가격 안내. 홈페이지 제작, 디자인, 마케팅 가격을 정직하게 공개합니다.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://vdirectors.com/pricing.html">
+<meta property="og:url" content="https://vdirectors.com/pricing">
 <meta property="og:image" content="https://vdirectors.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <meta name="description" content="브이디렉터스 가격. 홈페이지 제작 120만원부터, 디자인 20만원부터, 마케팅 월 50만원부터. 정직하게 공개합니다.">
 <meta name="keywords" content="홈페이지 제작 비용, 홈페이지 제작 가격, 홈페이지 견적, 상세페이지 디자인 가격, 로고 디자인 비용, 패키지 디자인 가격, 마케팅 대행 비용, 인천 홈페이지 제작, 송도 홈페이지, 브이디렉터스, VDIRECTORS">
-<link rel="canonical" href="https://vdirectors.com/pricing.html">
+<link rel="canonical" href="https://vdirectors.com/pricing">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="css/style.css">
@@ -115,6 +115,11 @@
   .p-spec li{font-size:13.5px;padding:11px 0;border-top:1px solid var(--line);color:var(--g1);transition:color .4s,border-color .4s}
   .p-eg{margin-top:20px;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:13px;font-weight:600;padding:13px 16px;border:1px solid var(--g3);border-radius:11px;transition:background .3s,color .3s,border-color .3s}
   .pcard:hover .p-eg:hover{background:#fff;color:#000;border-color:#fff}
+  /* 디자인 탭: 박스 살짝 축소 + 하단 통합 작업보기 버튼 */
+  .price-grid[data-grid="design"] .pcard{padding:28px 24px 24px}
+  .works-cta{margin-top:26px;display:flex;justify-content:center}
+  .works-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:15px;font-weight:700;padding:16px 40px;border-radius:100px;background:var(--ink);color:#fff;transition:opacity .3s}
+  .works-btn:hover{opacity:.85}
   .price-foot{margin-top:24px;font-size:13px;color:var(--g2)}
 
   /* THREE (kept dark as accent band) */
@@ -145,13 +150,13 @@
   <div id="scrollProgress"></div>
 
   <nav id="nav">
-    <a href="index.html" class="nav-logo">VDIRECTORS</a>
+    <a href="/" class="nav-logo">VDIRECTORS</a>
     <ul class="nav-links">
-      <li><a href="about.html">ABOUT</a></li>
-      <li><a href="services.html">SERVICES</a></li>
-      <li><a href="portfolio.html">PORTFOLIO</a></li>
-      <li><a href="pricing.html" class="nav-active">PRICING</a></li>
-      <li><a href="index.html#contact">CONTACT</a></li>
+      <li><a href="about">ABOUT</a></li>
+      <li><a href="services">SERVICES</a></li>
+      <li><a href="portfolio">PORTFOLIO</a></li>
+      <li><a href="pricing" class="nav-active">PRICING</a></li>
+      <li><a href="/#contact">CONTACT</a></li>
     </ul>
     <button class="nav-mobile-btn" id="mobileMenuBtn" aria-label="메뉴">
       <span></span><span></span>
@@ -160,11 +165,11 @@
 
   <div class="mobile-menu" id="mobileMenu">
     <ul>
-      <li><a href="about.html">ABOUT</a></li>
-      <li><a href="services.html">SERVICES</a></li>
-      <li><a href="portfolio.html">PORTFOLIO</a></li>
-      <li><a href="pricing.html">PRICING</a></li>
-      <li><a href="index.html#contact">CONTACT</a></li>
+      <li><a href="about">ABOUT</a></li>
+      <li><a href="services">SERVICES</a></li>
+      <li><a href="portfolio">PORTFOLIO</a></li>
+      <li><a href="pricing">PRICING</a></li>
+      <li><a href="/#contact">CONTACT</a></li>
     </ul>
   </div>
 
@@ -174,7 +179,7 @@
       <h1 class="hero-headline reveal">기획을 가장 잘하는<br><span class="mut">똑똑한 회사.</span></h1>
       <p class="hero-sub reveal">어디서부터 해야 할지 모르겠다면,<br><b>브이디렉터스에서</b> 시작해보세요.</p>
       <div class="hero-actions reveal">
-        <a href="index.html#contact" class="btn-primary">견적 문의</a>
+        <a href="/#contact" class="btn-primary">견적 문의</a>
         <a href="#price" class="btn-ghost">가격 보기</a>
       </div>
     </div>
@@ -250,27 +255,23 @@
         <div class="pcard">
           <div class="p-tier">DETAIL</div><div class="p-cat">상세페이지</div><div class="p-desc">제품 상세 · 랜딩 비주얼</div>
           <div class="p-price">25<span class="u">만원~</span></div>
-          <ul class="p-spec"><li>세로 길이별 정찰제</li><li>초안 평일 3~5일</li><li>시안 1종 · 수정 2회</li><li>JPG · PSD 원본 제공</li></ul>
-          <a class="p-eg" href="portfolio.html?filter=design" target="_blank">작업 보기</a>
-        </div>
+          <ul class="p-spec"><li>세로 길이별 정찰제</li><li>초안 평일 3~5일</li><li>시안 1종 · 수정 2회</li><li>JPG · PSD 원본 제공</li></ul>        </div>
         <div class="pcard">
           <div class="p-tier">BRAND</div><div class="p-cat">로고 · 브랜딩</div><div class="p-desc">BI · CI 개발</div>
           <div class="p-price">50<span class="u">만원~</span></div>
-          <ul class="p-spec"><li>로고 시안 3종 · 수정 3회</li><li>풀 브랜딩 패키지 별도</li><li>명함 · 패키지 · 배너 확장</li><li>AI 원본 제공</li></ul>
-          <a class="p-eg" href="portfolio.html?filter=design" target="_blank">작업 보기</a>
-        </div>
+          <ul class="p-spec"><li>로고 시안 3종 · 수정 3회</li><li>풀 브랜딩 패키지 별도</li><li>명함 · 패키지 · 배너 확장</li><li>AI 원본 제공</li></ul>        </div>
         <div class="pcard">
           <div class="p-tier">PACKAGE</div><div class="p-cat">패키지</div><div class="p-desc">라벨 · 파우치 · 박스</div>
           <div class="p-price">25<span class="u">만원~</span></div>
-          <ul class="p-spec"><li>단면 (라벨·스티커) 25만~</li><li>양면 (파우치) 40만~</li><li>단상자·박스 (4~6면) 70만~</li><li>시안 2종 · 수정 2회</li></ul>
-          <a class="p-eg" href="portfolio.html?filter=design" target="_blank">작업 보기</a>
-        </div>
+          <ul class="p-spec"><li>단면 (라벨·스티커) 25만~</li><li>양면 (파우치) 40만~</li><li>단상자·박스 (4~6면) 70만~</li><li>시안 2종 · 수정 2회</li></ul>        </div>
         <div class="pcard">
           <div class="p-tier">PRINT</div><div class="p-cat">리플릿 · 카탈로그</div><div class="p-desc">오프라인 인쇄물</div>
           <div class="p-price">10<span class="u">만원~</span></div>
-          <ul class="p-spec"><li>포스터 A4 10만 / A3 18만</li><li>브로슈어 · 리플릿 · 카탈로그</li><li>현수막 · 배너 · 명함</li><li>시안 1종 · 수정 2회</li></ul>
-          <a class="p-eg" href="portfolio.html?filter=design" target="_blank">작업 보기</a>
-        </div>
+          <ul class="p-spec"><li>포스터 A4 10만 / A3 18만</li><li>브로슈어 · 리플릿 · 카탈로그</li><li>현수막 · 배너 · 명함</li><li>시안 1종 · 수정 2회</li></ul>        </div>
+      </div>
+
+      <div class="works-cta" data-works="design" hidden>
+        <a href="portfolio?filter=design" class="works-btn" target="_blank">디자인 작업 보기</a>
       </div>
 
       <div class="market-wrap" data-grid="market" hidden>
@@ -292,7 +293,7 @@
         </div>
         <div class="market-cta">
           <div><div class="mk-price">월 50만원부터</div><div class="mk-sub">무료 진단 리포트로 현재 상태를 점검하고 맞춤 전략을 제안합니다.</div></div>
-          <a href="index.html#contact" class="btn-primary">마케팅 문의</a>
+          <a href="/#contact" class="btn-primary">마케팅 문의</a>
         </div>
       </div>
 
@@ -314,7 +315,7 @@
         <div class="three-item reveal"><div class="three-n">3</div><div class="three-h">꼭 필요한 핵심 기능</div><p class="three-d">폼 · 로그인 · 결제 · 관리자 등 반드시 들어가야 할 기능을 정리해주세요.</p></div>
       </div>
       <div class="three-contact reveal">
-        <a href="index.html#contact" class="three-cta">견적 문의하기</a>
+        <a href="/#contact" class="three-cta">견적 문의하기</a>
         <div class="three-ch">contact@vdirectors.com<span class="dot">·</span>010-8937-0257</div>
       </div>
     </div>
@@ -363,6 +364,7 @@
     document.querySelectorAll('.pt-btn').forEach(x=>x.classList.toggle('active',x===b));
     document.querySelectorAll('[data-grid]').forEach(g=>g.hidden=g.dataset.grid!==t);
     document.querySelectorAll('[data-foot]').forEach(f=>f.hidden=f.dataset.foot!==t);
+    document.querySelectorAll('[data-works]').forEach(w=>w.hidden=w.dataset.works!==t);
     const shown=document.querySelector('[data-grid="'+t+'"]');
     if(shown&&!document.body.classList.contains('cap')){
       const items=shown.classList.contains('market-wrap')?[...shown.children]:[...shown.querySelectorAll('.pcard')];
