@@ -16,6 +16,7 @@
 <link rel="canonical" href="https://vdirectors.com/pricing.html">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="css/style.css">
 <style>
   :root{
     --ink:#15151a; --g1:#6b6b70; --g2:#9a9a9f; --g3:#e6e6e2; --line:#ededea;
@@ -30,15 +31,6 @@
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
   .reveal.in{opacity:1;transform:none}
   @keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-
-  /* NAV */
-  nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px 56px;background:rgba(255,255,255,.78);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-  .nav-logo{font-weight:800;letter-spacing:.16em;font-size:17px}
-  .nav-links{display:flex;gap:32px;list-style:none}
-  .nav-links a{font-size:13px;font-weight:600;letter-spacing:.12em;color:var(--g1);transition:color .25s}
-  .nav-links a:hover{color:var(--ink)}
-  .nav-links a.nav-active{color:var(--ink)}
-  .nav-cta{font-size:13px;font-weight:700;padding:11px 20px;border-radius:100px;background:var(--ink);color:#fff}
 
   /* HERO white split */
   #hero{min-height:86vh;display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:center;padding:128px 56px 72px;max-width:1340px;margin:0 auto}
@@ -138,29 +130,40 @@
   .three-ch{font-size:14px;color:var(--dg1);letter-spacing:.02em}
   .three-ch .dot{margin:0 10px;color:var(--dg2)}
 
-  /* FOOTER */
-  footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 56px 56px}
-  .foot-in{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:36px}
-  .foot-logo{font-size:26px;font-weight:800;letter-spacing:.1em}
-  .foot-slogan{margin-top:8px;font-size:13px;color:var(--g2)}
-  .foot-right p{font-size:13px;line-height:1.9;color:var(--g1)}
-
   @media(max-width:900px){
     #hero{grid-template-columns:1fr;gap:48px;min-height:auto;padding:130px 28px 70px}
     body.cap #hero{min-height:auto}
     .why-grid,.price-grid,.three-list{grid-template-columns:1fr}
-    nav{padding:18px 24px}.nav-links{display:none}
     .sec{padding:84px 28px}.why-cell{padding:38px 28px}
-    footer{padding:60px 28px 44px}
   }
 </style>
 </head>
-<body>
-  <nav>
+<body class="page">
+  <div id="scrollProgress"></div>
+
+  <nav id="nav">
     <a href="index.html" class="nav-logo">VDIRECTORS</a>
-    <ul class="nav-links"><li><a href="about.html">ABOUT</a></li><li><a href="services.html">SERVICES</a></li><li><a href="portfolio.html">PORTFOLIO</a></li><li><a href="#price" class="nav-active">PRICING</a></li></ul>
-    <a href="index.html#contact" class="nav-cta">문의하기</a>
+    <ul class="nav-links">
+      <li><a href="about.html">ABOUT</a></li>
+      <li><a href="services.html">SERVICES</a></li>
+      <li><a href="portfolio.html">PORTFOLIO</a></li>
+      <li><a href="pricing.html" class="nav-active">PRICING</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+    <button class="nav-mobile-btn" id="mobileMenuBtn" aria-label="메뉴">
+      <span></span><span></span>
+    </button>
   </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="about.html">ABOUT</a></li>
+      <li><a href="services.html">SERVICES</a></li>
+      <li><a href="portfolio.html">PORTFOLIO</a></li>
+      <li><a href="pricing.html">PRICING</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+  </div>
 
   <!-- HERO -->
   <section id="hero">
@@ -316,17 +319,33 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="foot-in">
-      <div><div class="foot-logo">VDIRECTORS</div><div class="foot-slogan">We Direct Your Value</div></div>
-      <div class="foot-right">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <p class="footer-logo">VDIRECTORS</p>
+        <p class="footer-slogan">We Direct Your Value</p>
+      </div>
+      <div class="footer-right">
         <p>인천광역시 연수구 송도과학로56, 송도테크노파크BT센터 1401호</p>
-        <p>(주)브이디렉터스 · 대표 손휘민 · 713-81-02573</p>
-        <p>contact@vdirectors.com</p>
+        <p>(주)브이디렉터스 · 대표 손휘민 · 사업자등록번호 713-81-02573</p>
+        <p>contact@vdirectors.com · <a href="tel:01089370257" class="footer-tel">Tel. 010-8937-0257</a></p>
+        <p class="footer-copy"></p>
       </div>
     </div>
   </footer>
 
 <script>
+  // site header behavior (nav scrolled + mobile menu + scroll progress)
+  (function(){
+    const nav=document.getElementById('nav');
+    if(nav)window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60),{passive:true});
+    const mBtn=document.getElementById('mobileMenuBtn'),mMenu=document.getElementById('mobileMenu');
+    if(mBtn&&mMenu){
+      mBtn.addEventListener('click',()=>{const o=mMenu.classList.toggle('active');mBtn.classList.toggle('active');document.body.style.overflow=o?'hidden':'';});
+      mMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mMenu.classList.remove('active');mBtn.classList.remove('active');document.body.style.overflow='';}));
+    }
+    const sp=document.getElementById('scrollProgress');
+    if(sp)window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;sp.style.width=h>0?(window.scrollY/h*100)+'%':'0%';},{passive:true});
+  })();
   // staggered emerge: each reveal eases up in sequence with its siblings
   const groups=new Map();
   document.querySelectorAll('.reveal').forEach(el=>{
