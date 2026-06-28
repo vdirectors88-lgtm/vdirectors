@@ -142,11 +142,42 @@
   .three-ch{font-size:14px;color:var(--dg1);letter-spacing:.02em}
   .three-ch .dot{margin:0 10px;color:var(--dg2)}
 
+  /* ===== 반응형: 데스크톱(4열) → 중형/태블릿(2열) → 폰(1열) ===== */
+  /* ≤1000px: 4-up 카드가 좁아지는 구간 → 2-up 으로 (태블릿 가로·아이패드 세로·노트북 좁은 창) */
+  @media(max-width:1000px){
+    .why-grid,.price-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  /* ≤900px: 히어로 세로 적층 + 섹션 여백 축소 */
   @media(max-width:900px){
-    #hero{grid-template-columns:1fr;gap:48px;min-height:auto;padding:130px 28px 70px}
+    #hero{grid-template-columns:1fr;gap:44px;min-height:auto;padding:120px 36px 64px}
     body.cap #hero{min-height:auto}
-    .why-grid,.price-grid,.three-list{grid-template-columns:1fr}
-    .sec{padding:90px 28px}.why-cell{padding:38px 28px}
+    .sec{padding:90px 36px}
+    .why-cell{padding:36px 30px}
+    .three-list{grid-template-columns:repeat(3,1fr);gap:12px}
+    .three-item{padding:30px 24px}
+  }
+  /* ≤640px: 폰 — 전 그리드 1열, 거터 축소, 타이틀 살짝 축소 */
+  @media(max-width:640px){
+    .why-grid,.price-grid,.three-list,.mk-services{grid-template-columns:1fr}
+    .sec{padding:76px 22px}
+    #hero{padding:104px 22px 52px;gap:38px}
+    .why-cell{padding:30px 24px}
+    .three-item{padding:28px 24px}
+    .sec-title{font-size:clamp(30px,8.5vw,42px)}
+    .three-title{font-size:clamp(30px,8.5vw,42px)}
+    .market-cta{flex-direction:column;align-items:flex-start;gap:16px;padding:26px 24px}
+    .market-cta .btn-primary{width:100%;justify-content:center}
+    .three-contact{gap:18px}
+  }
+  /* ≤380px: 폴드 접힘·초소형 — 좌우 여백 더 축소, 토글 한 줄 유지 */
+  @media(max-width:380px){
+    .sec{padding:68px 16px}
+    #hero{padding:96px 16px 48px}
+    .hs-card{padding:20px 18px;gap:14px}
+    .hs-vis{width:60px;height:60px}
+    .pcard{padding:28px 22px 22px}
+    .ptoggle{width:100%;justify-content:center}
+    .pt-btn{padding:10px 12px;font-size:12.5px}
   }
 </style>
 </head>
