@@ -28,14 +28,11 @@
   html{scroll-behavior:smooth}
   body{background:var(--paper);color:var(--ink);font-family:'Pretendard',sans-serif;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
-  /* 등장 효과는 animation으로 (transition-delay가 hover에 새는 것 방지) */
+  /* 등장 효과: 부드럽고 빠른 미세 페이드업 (위치 흔들림 최소화) */
   .reveal{opacity:0}
-  .reveal.in{opacity:1;animation:revealUp .9s var(--ease) backwards}
-  /* 견적 카드는 더 크게 떠오르며 하나하나 등장 */
-  .price-grid .pcard.reveal.in{animation:revealUpBig .95s var(--ease) backwards}
-  @keyframes revealUp{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
-  @keyframes revealUpBig{from{opacity:0;transform:translateY(52px)}to{opacity:1;transform:none}}
-  @keyframes cardIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+  .reveal.in{opacity:1;animation:revealUp .5s var(--ease) backwards}
+  @keyframes revealUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
   /* HERO white split */
   #hero{min-height:86vh;display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:center;padding:128px 56px 72px;max-width:1340px;margin:0 auto}
@@ -357,7 +354,7 @@
   document.querySelectorAll('.reveal').forEach(el=>{
     const p=el.parentElement;const arr=groups.get(p)||[];arr.push(el);groups.set(p,arr);
   });
-  groups.forEach(arr=>arr.forEach((el,i)=>{el.style.animationDelay=(i*140)+'ms';}));
+  groups.forEach(arr=>arr.forEach((el,i)=>{el.style.animationDelay=(i*70)+'ms';}));
   const io=new IntersectionObserver((es)=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}}),{threshold:.18,rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   // price toggle
@@ -369,7 +366,7 @@
     const shown=document.querySelector('[data-grid="'+t+'"]');
     if(shown&&!document.body.classList.contains('cap')){
       const items=shown.classList.contains('market-wrap')?[...shown.children]:[...shown.querySelectorAll('.pcard')];
-      items.forEach((el,i)=>{el.style.animation='none';void el.offsetWidth;el.style.animation='cardIn .7s var(--ease) backwards';el.style.animationDelay=(i*120)+'ms';});
+      items.forEach((el,i)=>{el.style.animation='none';void el.offsetWidth;el.style.animation='cardIn .5s var(--ease) backwards';el.style.animationDelay=(i*70)+'ms';});
     }
   }));
   if(location.hash.indexOf('cap')>=0){document.body.classList.add('cap');document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));}
