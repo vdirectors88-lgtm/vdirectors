@@ -256,9 +256,9 @@ a { text-decoration: none; color: inherit; }
 .hero-label::before {
   content: '';
   display: block;
-  width: 32px;
-  height: 1px;
-  background: var(--g3);
+  width: 7px;
+  height: 7px;
+  background: var(--black);
   flex-shrink: 0;
 }
 
